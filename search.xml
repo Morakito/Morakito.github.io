@@ -58,5 +58,12 @@
 <p><img src="https://github.com/Morakito/Blog-Images/raw/DataBase/001-5.png" alt=""></p>
 <h3 id="1-1小结"><a href="#1-1小结" class="headerlink" title="1.1小结"></a>1.1小结</h3><p>1，数据库是长期存储在计算机内有组织、大量、共享的<strong>数据集合</strong>。它可以供各种用户<strong>共享</strong>，具有<strong>最小冗余度</strong>和<strong>较高的数据独立性</strong>。<br>2，数据库管理系统在数据库建立、运用和维护时对数据库进行统一的控制，以保证<strong>数据的完整性和安全性</strong>，并在多用户同时使用数据库时进行<strong>并发控制</strong>，在发生故障后对数据库进行<strong>恢复</strong>。<br>3，数据库的出现使信息系统从以<strong>加工数据的程序为中心</strong>转向围绕<strong>共享的数据库为中心</strong>的新阶段。便于数据的集中管理，简化应用程序的研制和维护，提高了数据的利用率和相容性。</p>
 ]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+        <tag>概论</tag>
+      </tags>
   </entry>
 </search>

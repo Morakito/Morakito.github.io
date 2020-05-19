@@ -62,8 +62,47 @@
       </tags>
   </entry>
   <entry>
-    <title>Next主题美化</title>
+    <title>Hexo博客实用技巧</title>
     <url>/2020/05/11/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h2 id="一，加入live2d"><a href="#一，加入live2d" class="headerlink" title="一，加入live2d"></a>一，加入live2d</h2>]]></content>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<pre><code>---
+title: 分类
+date: 2019-04-24 15:30:30
+type: categories
+---</code></pre><p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<pre><code>---
+title: Hexo 添加分类及标签
+date: 2017-05-26 12:12:57
+categories: Hexo
+---</code></pre><p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<pre><code>---
+title: 标签
+date: 2019-04-24 15:30:30
+type: tags
+---</code></pre><p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<pre><code>---
+title: Hexo 添加分类及标签
+date: 2017-05-26 12:12:57
+categories: 
+            - Hexo
+tags：
+            - 博客技巧
+---</code></pre><p>（ps：一篇文章可以有多个标签）</p>
+]]></content>
+      <categories>
+        <category>博客技巧</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
   </entry>
 </search>

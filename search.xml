@@ -81,13 +81,7 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
 <p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: </span><br><span class="line"><span class="bullet">            - </span>Hexo</span><br><span class="line">tags：</span><br><span class="line"><span class="bullet">            - </span>博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 <p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="链接持久化"><a href="#链接持久化" class="headerlink" title="链接持久化"></a>链接持久化</h3><p>hexo博客的默认链接是文章的名字，导致url里会出现中文。<br><strong>解决方案</strong>：使用 <strong>hexo-abbrlink</strong> 插件</p>
-<p>在站点根目录下执行：</p>
-<pre><code>npm install hexo-abbrlink --save</code></pre><p>站点配置文件里：</p>
-<pre><code>permalink: post/:abbrlink.html
-abbrlink:
-alg: crc32  # 算法：crc16(default) and crc32
-rep: hex    # 进制：dec(default) and hex</code></pre>]]></content>
+]]></content>
       <categories>
         <category>博客技巧</category>
       </categories>

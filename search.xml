@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>条款02：尽量以const，enum，inline替换#define</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
+    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
+<h4 id="define的问题"><a href="#define的问题" class="headerlink" title="define的问题"></a>define的问题</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
+<p>记号名称ASPECT_RATIO从未被编译器看到过，不会进入<strong>符号表</strong>，当运用该常量但发生了编译或运行错误的时候，错误信息会提到1.653而不是ASPECT_RATIO，<strong>不便于追踪</strong>。<br>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
+<p>(ps：大写名称通常用于宏)<br>此外，对于浮点常量来说，使用const常量可能比使用#define获得更少的目标代码（object code）</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>条款01：视C++为一个语言联邦</title>
     <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
@@ -17,19 +33,32 @@
       </tags>
   </entry>
   <entry>
-    <title>条款02：尽量以const，enum，inline替换#define</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
-    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
-<h4 id="define的问题"><a href="#define的问题" class="headerlink" title="define的问题"></a>define的问题</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
-<p>记号名称ASPECT_RATIO从未被编译器看到过，不会进入<strong>符号表</strong>，当运用该常量但发生了编译或运行错误的时候，错误信息会提到1.653而不是ASPECT_RATIO，<strong>不便于追踪</strong>。<br>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
-<p>(ps：大写名称通常用于宏)<br>此外，对于浮点常量来说，使用const常量可能比使用#define获得更少的目标代码（object code）</p>
-]]></content>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: </span><br><span class="line"><span class="bullet">            - </span>Hexo</span><br><span class="line">tags：</span><br><span class="line"><span class="bullet">            - </span>博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="更改URL链接"><a href="#更改URL链接" class="headerlink" title="更改URL链接"></a>更改URL链接</h3>]]></content>
       <categories>
-        <category>Effective C++</category>
+        <category>博客技巧</category>
       </categories>
       <tags>
-        <tag>C++</tag>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
       </tags>
   </entry>
   <entry>
@@ -90,35 +119,6 @@
       </categories>
       <tags>
         <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: </span><br><span class="line"><span class="bullet">            - </span>Hexo</span><br><span class="line">tags：</span><br><span class="line"><span class="bullet">            - </span>博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="更改URL链接"><a href="#更改URL链接" class="headerlink" title="更改URL链接"></a>更改URL链接</h3>]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
       </tags>
   </entry>
 </search>

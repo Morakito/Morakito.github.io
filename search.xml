@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>条款02：尽量以const，enum，inline替换#define</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
-    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
-<h4 id="define的问题"><a href="#define的问题" class="headerlink" title="define的问题"></a>define的问题</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
-<p>记号名称ASPECT_RATIO从未被编译器看到过，不会进入<strong>符号表</strong>，当运用该常量但发生了编译或运行错误的时候，错误信息会提到1.653而不是ASPECT_RATIO，<strong>不便于追踪</strong>。<br>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
-<p>(ps：大写名称通常用于宏)<br>此外，对于浮点常量来说，使用const常量可能比使用#define获得更少的目标代码（object code）</p>
+    <title>条款01：视C++为一个语言联邦</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
+<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
+<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
+<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
+<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
 ]]></content>
       <categories>
         <category>Effective C++</category>
@@ -17,13 +17,13 @@
       </tags>
   </entry>
   <entry>
-    <title>条款01：视C++为一个语言联邦</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
-<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
-<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
-<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
-<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
+    <title>条款02：尽量以const，enum，inline替换#define</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
+    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
+<h4 id="define的问题"><a href="#define的问题" class="headerlink" title="define的问题"></a>define的问题</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
+<p>记号名称ASPECT_RATIO从未被编译器看到过，不会进入<strong>符号表</strong>，当运用该常量但发生了编译或运行错误的时候，错误信息会提到1.653而不是ASPECT_RATIO，<strong>不便于追踪</strong>。<br>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
+<p>(ps：大写名称通常用于宏)<br>此外，对于浮点常量来说，使用const常量可能比使用#define获得更少的目标代码（object code）</p>
 ]]></content>
       <categories>
         <category>Effective C++</category>
@@ -113,6 +113,49 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
 
 <p><img src="https://github.com/Morakito/Blog-Images/raw/DataBase/001-5.png" alt=""></p>
 <h3 id="1-1小结"><a href="#1-1小结" class="headerlink" title="1.1小结"></a>1.1小结</h3><p>1，数据库是长期存储在计算机内有组织、大量、共享的<strong>数据集合</strong>。它可以供各种用户<strong>共享</strong>，具有<strong>最小冗余度</strong>和<strong>较高的数据独立性</strong>。<br>2，数据库管理系统在数据库建立、运用和维护时对数据库进行统一的控制，以保证<strong>数据的完整性和安全性</strong>，并在多用户同时使用数据库时进行<strong>并发控制</strong>，在发生故障后对数据库进行<strong>恢复</strong>。<br>3，数据库的出现使信息系统从以<strong>加工数据的程序为中心</strong>转向围绕<strong>共享的数据库为中心</strong>的新阶段。便于数据的集中管理，简化应用程序的研制和维护，提高了数据的利用率和相容性。</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库002-关系模型</title>
+    <url>/2020/06/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93002/</url>
+    <content><![CDATA[<h3 id="关系数据库的结构"><a href="#关系数据库的结构" class="headerlink" title="关系数据库的结构"></a>关系数据库的结构</h3><p>关系数据库由<strong>表（table）</strong>的集合构成，每个表有<strong>唯一的名字</strong>。</p>
+<h4 id="关系模型术语："><a href="#关系模型术语：" class="headerlink" title="关系模型术语："></a>关系模型术语：</h4><p>1，<strong>关系</strong>（relation）用来指代表<br>2，<strong>元组</strong>（tuple）用来指代行<br>3，<strong>属性</strong>（attribute）指代表中的列</p>
+<h4 id="属性的域"><a href="#属性的域" class="headerlink" title="属性的域"></a>属性的域</h4><p>1，对于关系的每个属性，都存在一个允许取值的集合，叫做属性的域<br>2，域是<strong>原子</strong>的，即域中元素都是不可再分的<br>3，<strong>空值（null）</strong>代表值未知或者不存在<br>（ps：应尽量避免使用空值）</p>
+<h3 id="码"><a href="#码" class="headerlink" title="码"></a>码</h3><p>一个元组的属性值必须能够唯一区分元组：一个关系中没有两个元组所有的属性值都相同（两行完全一样）</p>
+<h4 id="超码（super-key）"><a href="#超码（super-key）" class="headerlink" title="超码（super key）"></a>超码（super key）</h4><p>1，<strong>一个</strong>或者<strong>多个</strong>属性<br>2，在一个关系中唯一标识一个元组：<strong>区分一个表中的不同行</strong></p>
+<h4 id="候选码（candidate-key）"><a href="#候选码（candidate-key）" class="headerlink" title="候选码（candidate key）"></a>候选码（candidate key）</h4><p><strong>最小超码</strong>：任意真子集都不能成为超码</p>
+<pre><code>例如：
+{ID}和{name，dept_name}都是候选码，
+但是{ID，name}却不是候选码，
+因为单独的属性ID已经是候选码了。</code></pre><h4 id="主码（primary-key）"><a href="#主码（primary-key）" class="headerlink" title="主码（primary key）"></a>主码（primary key）</h4><p>1，被选中的候选码，用来区分表中不同的的行（<strong>唯一标识符</strong>）<br>2，<strong>码</strong>是整个表的一种属性，而不是某一行的属性<br>3，一个表中的任意两行都不能在码属性上具有相同的值（唯一）<br>3，主码应选择那些值从不或者极少变化的属性</p>
+<h4 id="外码（foreign-key）"><a href="#外码（foreign-key）" class="headerlink" title="外码（foreign key）"></a>外码（foreign key）</h4><p>1，关系模式：逻辑设计，类似于类型定义（表的格式）<br>2，关系模式r1在属性中包含另一个关系模式r2的<strong>主码</strong>，这个属性在r1上称作参照r2的<strong>外码</strong><br>关系r1叫做<strong>外码依赖的参照关系</strong>，关系r2叫做<strong>被参照关系</strong></p>
+<h3 id="关系查询语言"><a href="#关系查询语言" class="headerlink" title="关系查询语言"></a>关系查询语言</h3><p>实际使用的查询语言既包括过程化的成分，又包括非过程化的成分</p>
+<h4 id="过程化语言"><a href="#过程化语言" class="headerlink" title="过程化语言"></a>过程化语言</h4><p>用户指导数据库进行一系列操作<br>如：关系代数</p>
+<h4 id="非过程化语言"><a href="#非过程化语言" class="headerlink" title="非过程化语言"></a>非过程化语言</h4><p>用户只描述所需信息，不给出获取信息的具体过程<br>如元组关系演算和域关系演算</p>
+<h3 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h3><h4 id="选择-δ"><a href="#选择-δ" class="headerlink" title="选择 δ"></a>选择 δ</h4><p>从一个表中选出满足特定要求的行，其结果是一张新表</p>
+<h4 id="投影-Π"><a href="#投影-Π" class="headerlink" title="投影 Π"></a>投影 Π</h4><p>从一个表中选择特定的属性（列），其结果是一张新表</p>
+<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p>1，自然连接<br>两个表中的属性匹配<br>2，笛卡尔积<br>输出所有元组（行）对</p>
+<center>关系代数的运算举例</center> 
+
+<p><img src="https://github.com/Morakito/Blog-Images/raw/DataBase/002-1.png" alt="关系代数的运算举例"></p>
+<h3 id="术语回顾"><a href="#术语回顾" class="headerlink" title="术语回顾"></a>术语回顾</h3><blockquote>
+<p>表<br>关系（表）<br>元组（行）<br>属性（列）<br>空值（null）<br>域<br>原子域</p>
+</blockquote>
+<blockquote>
+<p>数据库模式<br>数据库模式<br>数据库实例<br>关系模式<br>关系实例</p>
+</blockquote>
+<blockquote>
+<p>码<br>超码<br>候选码<br>主码<br>外码<br>参照关系<br>被参照关系</p>
+</blockquote>
+<blockquote>
+<p>关系代数<br>选择（选择行）<br>投影（选择列）<br>自然连接（属性匹配）<br>笛卡尔积（所有行对）<br>集合运算</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>数据库</category>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -79,15 +79,16 @@
 
 
 
-<meta name="description" content="我就喜欢你看不惯我又干不掉我的样子">
+<meta name="description" content="const的作用1，告诉编译器和其他程序员某值应该保持不变2，会获得编译器的帮助提示 const的语法：常量声名1char greeting[] &#x3D; &quot;hello&quot;; 1，如果const出现在*****的左边，表示被指物是常量 1const char* p &#x3D; greeting;   &#x2F;&#x2F;不可以修改*p，可以修改p 2，如果const出现在*****的右边，表示指针自身是常量 1char* con">
 <meta property="og:type" content="article">
-<meta property="og:title" content="effective_c++">
+<meta property="og:title" content="条款03：尽可能使用const">
 <meta property="og:url" content="http://yoursite.com/2020/06/Effective-C++/Effective-CPP-03/index.html">
 <meta property="og:site_name" content="Morakito的blog">
-<meta property="og:description" content="我就喜欢你看不惯我又干不掉我的样子">
+<meta property="og:description" content="const的作用1，告诉编译器和其他程序员某值应该保持不变2，会获得编译器的帮助提示 const的语法：常量声名1char greeting[] &#x3D; &quot;hello&quot;; 1，如果const出现在*****的左边，表示被指物是常量 1const char* p &#x3D; greeting;   &#x2F;&#x2F;不可以修改*p，可以修改p 2，如果const出现在*****的右边，表示指针自身是常量 1char* con">
 <meta property="article:published_time" content="2020-06-06T03:10:21.000Z">
-<meta property="article:modified_time" content="2020-06-06T03:10:21.353Z">
+<meta property="article:modified_time" content="2020-06-06T05:36:29.310Z">
 <meta property="article:author" content="Morakito">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,7 +125,7 @@
 
 
 
-  <title>effective_c++ | Morakito的blog</title>
+  <title>条款03：尽可能使用const | Morakito的blog</title>
   
 
 
@@ -322,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">effective_c++</h1>
+          <h1 class="post-title" itemprop="name headline">条款03：尽可能使用const</h1>
         
 
         <div class="post-meta">
@@ -345,6 +346,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -366,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  294
                 </span>
               
 
@@ -403,7 +426,20 @@
       
 
       
-        
+        <h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
+<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
+<p>1，如果const出现在*****的左边，表示被指物是常量</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
+<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
+<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
+<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
+
       
     </div>
     
@@ -417,6 +453,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
       
 
       
@@ -436,6 +478,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/%E7%AE%97%E6%B3%95/%E5%B8%B8%E8%A7%8110%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="prev" title="常见10种排序算法">
+                常见10种排序算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -487,8 +533,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -507,7 +562,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -518,7 +573,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -529,7 +584,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -569,6 +624,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#const的作用"><span class="nav-number">1.</span> <span class="nav-text">const的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const的语法：常量声名"><span class="nav-number">2.</span> <span class="nav-text">const的语法：常量声名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const的语法：函数声名"><span class="nav-number">3.</span> <span class="nav-text">const的语法：函数声名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作用于参数"><span class="nav-number">3.1.</span> <span class="nav-text">作用于参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用于返回值"><span class="nav-number">3.2.</span> <span class="nav-text">作用于返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用于成员函数（const成员函数）"><span class="nav-number">3.3.</span> <span class="nav-text">作用于成员函数（const成员函数）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -596,7 +667,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.9k</span>
+    <span title="Site words total count">4.6k</span>
   
 </div>
 
@@ -612,7 +683,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共2.9k字&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+  <span class="post-count">博客全站共4.6k字&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
 </div>
 -->
 

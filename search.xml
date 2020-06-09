@@ -25,6 +25,22 @@
       </tags>
   </entry>
   <entry>
+    <title>条款01：视C++为一个语言联邦</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
+<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
+<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
+<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
+<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>条款02：尽量以const，enum，inline替换#define</title>
     <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
     <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
@@ -57,94 +73,6 @@
       </categories>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款01：视C++为一个语言联邦</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
-<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
-<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
-<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
-<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: </span><br><span class="line"><span class="bullet">            - </span>Hexo</span><br><span class="line">tags：</span><br><span class="line"><span class="bullet">            - </span>博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="更改URL链接"><a href="#更改URL链接" class="headerlink" title="更改URL链接"></a>更改URL链接</h3>]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据库002-关系模型</title>
-    <url>/2020/06/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93002/</url>
-    <content><![CDATA[<h3 id="关系数据库的结构"><a href="#关系数据库的结构" class="headerlink" title="关系数据库的结构"></a>关系数据库的结构</h3><p>关系数据库由<strong>表（table）</strong>的集合构成，每个表有<strong>唯一的名字</strong>。</p>
-<h4 id="关系模型术语："><a href="#关系模型术语：" class="headerlink" title="关系模型术语："></a>关系模型术语：</h4><p>1，<strong>关系</strong>（relation）用来指代表<br>2，<strong>元组</strong>（tuple）用来指代行<br>3，<strong>属性</strong>（attribute）指代表中的列</p>
-<h4 id="属性的域"><a href="#属性的域" class="headerlink" title="属性的域"></a>属性的域</h4><p>1，对于关系的每个属性，都存在一个允许取值的集合，叫做属性的域<br>2，域是<strong>原子</strong>的，即域中元素都是不可再分的<br>3，<strong>空值（null）</strong>代表值未知或者不存在<br>（ps：应尽量避免使用空值）</p>
-<h3 id="码"><a href="#码" class="headerlink" title="码"></a>码</h3><p>一个元组的属性值必须能够唯一区分元组：一个关系中没有两个元组所有的属性值都相同（两行完全一样）</p>
-<h4 id="超码（super-key）"><a href="#超码（super-key）" class="headerlink" title="超码（super key）"></a>超码（super key）</h4><p>1，<strong>一个</strong>或者<strong>多个</strong>属性<br>2，在一个关系中唯一标识一个元组：<strong>区分一个表中的不同行</strong></p>
-<h4 id="候选码（candidate-key）"><a href="#候选码（candidate-key）" class="headerlink" title="候选码（candidate key）"></a>候选码（candidate key）</h4><p><strong>最小超码</strong>：任意真子集都不能成为超码</p>
-<pre><code>例如：
-{ID}和{name，dept_name}都是候选码，
-但是{ID，name}却不是候选码，
-因为单独的属性ID已经是候选码了。</code></pre><h4 id="主码（primary-key）"><a href="#主码（primary-key）" class="headerlink" title="主码（primary key）"></a>主码（primary key）</h4><p>1，被选中的候选码，用来区分表中不同的的行（<strong>唯一标识符</strong>）<br>2，<strong>码</strong>是整个表的一种属性，而不是某一行的属性<br>3，一个表中的任意两行都不能在码属性上具有相同的值（唯一）<br>3，主码应选择那些值从不或者极少变化的属性</p>
-<h4 id="外码（foreign-key）"><a href="#外码（foreign-key）" class="headerlink" title="外码（foreign key）"></a>外码（foreign key）</h4><p>1，关系模式：逻辑设计，类似于类型定义（表的格式）<br>2，关系模式r1在属性中包含另一个关系模式r2的<strong>主码</strong>，这个属性在r1上称作参照r2的<strong>外码</strong><br>关系r1叫做<strong>外码依赖的参照关系</strong>，关系r2叫做<strong>被参照关系</strong></p>
-<h3 id="关系查询语言"><a href="#关系查询语言" class="headerlink" title="关系查询语言"></a>关系查询语言</h3><p>实际使用的查询语言既包括过程化的成分，又包括非过程化的成分</p>
-<h4 id="过程化语言"><a href="#过程化语言" class="headerlink" title="过程化语言"></a>过程化语言</h4><p>用户指导数据库进行一系列操作<br>如：关系代数</p>
-<h4 id="非过程化语言"><a href="#非过程化语言" class="headerlink" title="非过程化语言"></a>非过程化语言</h4><p>用户只描述所需信息，不给出获取信息的具体过程<br>如元组关系演算和域关系演算</p>
-<h3 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h3><h4 id="选择-δ"><a href="#选择-δ" class="headerlink" title="选择 δ"></a>选择 δ</h4><p>从一个表中选出满足特定要求的行，其结果是一张新表</p>
-<h4 id="投影-Π"><a href="#投影-Π" class="headerlink" title="投影 Π"></a>投影 Π</h4><p>从一个表中选择特定的属性（列），其结果是一张新表</p>
-<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p>1，自然连接<br>两个表中的属性匹配<br>2，笛卡尔积<br>输出所有元组（行）对</p>
-<center>关系代数的运算举例</center> 
-
-<p><img src="https://github.com/Morakito/Blog-Images/raw/DataBase/002-1.png" alt="关系代数的运算举例"></p>
-<h3 id="术语回顾"><a href="#术语回顾" class="headerlink" title="术语回顾"></a>术语回顾</h3><blockquote>
-<p>表<br>关系（表）<br>元组（行）<br>属性（列）<br>空值（null）<br>域<br>原子域</p>
-</blockquote>
-<blockquote>
-<p>数据库模式<br>数据库实例<br>关系模式<br>关系实例</p>
-</blockquote>
-<blockquote>
-<p>码<br>超码<br>候选码<br>主码<br>外码<br>参照关系<br>被参照关系</p>
-</blockquote>
-<blockquote>
-<p>关系代数<br>选择（选择行）<br>投影（选择列）<br>自然连接（属性匹配）<br>笛卡尔积（所有行对）<br>集合运算</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -208,6 +136,78 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
       </tags>
   </entry>
   <entry>
+    <title>数据库002-关系模型</title>
+    <url>/2020/06/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93002/</url>
+    <content><![CDATA[<h3 id="关系数据库的结构"><a href="#关系数据库的结构" class="headerlink" title="关系数据库的结构"></a>关系数据库的结构</h3><p>关系数据库由<strong>表（table）</strong>的集合构成，每个表有<strong>唯一的名字</strong>。</p>
+<h4 id="关系模型术语："><a href="#关系模型术语：" class="headerlink" title="关系模型术语："></a>关系模型术语：</h4><p>1，<strong>关系</strong>（relation）用来指代表<br>2，<strong>元组</strong>（tuple）用来指代行<br>3，<strong>属性</strong>（attribute）指代表中的列</p>
+<h4 id="属性的域"><a href="#属性的域" class="headerlink" title="属性的域"></a>属性的域</h4><p>1，对于关系的每个属性，都存在一个允许取值的集合，叫做属性的域<br>2，域是<strong>原子</strong>的，即域中元素都是不可再分的<br>3，<strong>空值（null）</strong>代表值未知或者不存在<br>（ps：应尽量避免使用空值）</p>
+<h3 id="码"><a href="#码" class="headerlink" title="码"></a>码</h3><p>一个元组的属性值必须能够唯一区分元组：一个关系中没有两个元组所有的属性值都相同（两行完全一样）</p>
+<h4 id="超码（super-key）"><a href="#超码（super-key）" class="headerlink" title="超码（super key）"></a>超码（super key）</h4><p>1，<strong>一个</strong>或者<strong>多个</strong>属性<br>2，在一个关系中唯一标识一个元组：<strong>区分一个表中的不同行</strong></p>
+<h4 id="候选码（candidate-key）"><a href="#候选码（candidate-key）" class="headerlink" title="候选码（candidate key）"></a>候选码（candidate key）</h4><p><strong>最小超码</strong>：任意真子集都不能成为超码</p>
+<pre><code>例如：
+{ID}和{name，dept_name}都是候选码，
+但是{ID，name}却不是候选码，
+因为单独的属性ID已经是候选码了。</code></pre><h4 id="主码（primary-key）"><a href="#主码（primary-key）" class="headerlink" title="主码（primary key）"></a>主码（primary key）</h4><p>1，被选中的候选码，用来区分表中不同的的行（<strong>唯一标识符</strong>）<br>2，<strong>码</strong>是整个表的一种属性，而不是某一行的属性<br>3，一个表中的任意两行都不能在码属性上具有相同的值（唯一）<br>3，主码应选择那些值从不或者极少变化的属性</p>
+<h4 id="外码（foreign-key）"><a href="#外码（foreign-key）" class="headerlink" title="外码（foreign key）"></a>外码（foreign key）</h4><p>1，关系模式：逻辑设计，类似于类型定义（表的格式）<br>2，关系模式r1在属性中包含另一个关系模式r2的<strong>主码</strong>，这个属性在r1上称作参照r2的<strong>外码</strong><br>关系r1叫做<strong>外码依赖的参照关系</strong>，关系r2叫做<strong>被参照关系</strong></p>
+<h3 id="关系查询语言"><a href="#关系查询语言" class="headerlink" title="关系查询语言"></a>关系查询语言</h3><p>实际使用的查询语言既包括过程化的成分，又包括非过程化的成分</p>
+<h4 id="过程化语言"><a href="#过程化语言" class="headerlink" title="过程化语言"></a>过程化语言</h4><p>用户指导数据库进行一系列操作<br>如：关系代数</p>
+<h4 id="非过程化语言"><a href="#非过程化语言" class="headerlink" title="非过程化语言"></a>非过程化语言</h4><p>用户只描述所需信息，不给出获取信息的具体过程<br>如元组关系演算和域关系演算</p>
+<h3 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h3><h4 id="选择-δ"><a href="#选择-δ" class="headerlink" title="选择 δ"></a>选择 δ</h4><p>从一个表中选出满足特定要求的行，其结果是一张新表</p>
+<h4 id="投影-Π"><a href="#投影-Π" class="headerlink" title="投影 Π"></a>投影 Π</h4><p>从一个表中选择特定的属性（列），其结果是一张新表</p>
+<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p>1，自然连接<br>两个表中的属性匹配<br>2，笛卡尔积<br>输出所有元组（行）对</p>
+<center>关系代数的运算举例</center> 
+
+<p><img src="https://github.com/Morakito/Blog-Images/raw/DataBase/002-1.png" alt="关系代数的运算举例"></p>
+<h3 id="术语回顾"><a href="#术语回顾" class="headerlink" title="术语回顾"></a>术语回顾</h3><blockquote>
+<p>表<br>关系（表）<br>元组（行）<br>属性（列）<br>空值（null）<br>域<br>原子域</p>
+</blockquote>
+<blockquote>
+<p>数据库模式<br>数据库实例<br>关系模式<br>关系实例</p>
+</blockquote>
+<blockquote>
+<p>码<br>超码<br>候选码<br>主码<br>外码<br>参照关系<br>被参照关系</p>
+</blockquote>
+<blockquote>
+<p>关系代数<br>选择（选择行）<br>投影（选择列）<br>自然连接（属性匹配）<br>笛卡尔积（所有行对）<br>集合运算</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: </span><br><span class="line"><span class="bullet">            - </span>Hexo</span><br><span class="line">tags：</span><br><span class="line"><span class="bullet">            - </span>博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="更改URL链接"><a href="#更改URL链接" class="headerlink" title="更改URL链接"></a>更改URL链接</h3>]]></content>
+      <categories>
+        <category>博客技巧</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据库003</title>
     <url>/2020/06/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93003/</url>
     <content><![CDATA[]]></content>
@@ -249,9 +249,9 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">adjust_heap</span><span class="params">(<span class="keyword">int</span>* arr, <span class="keyword">int</span> cur, <span class="keyword">int</span> <span class="built_in">size</span>)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//调整为最大堆,cur为待调整结点</span></span><br><span class="line">	<span class="comment">//cur的左孩子</span></span><br><span class="line">	<span class="keyword">int</span> child = <span class="number">2</span> * cur + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (child &lt; <span class="built_in">size</span>) &#123;</span><br><span class="line">		<span class="comment">//child + 1是当前结点cur的右孩子</span></span><br><span class="line">		<span class="comment">//如果有右孩子而且大于左孩子，则用右孩子来与cur比较，否则用左孩子</span></span><br><span class="line">		<span class="keyword">if</span> ((child + <span class="number">1</span>) &lt; <span class="built_in">size</span> &amp;&amp; arr[child] &lt; arr[child + <span class="number">1</span>]) child++;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//若较大的孩子比当前结点cur大</span></span><br><span class="line">		<span class="keyword">if</span> (arr[cur] &lt; arr[child]) &#123;</span><br><span class="line">			<span class="comment">//交换孩子结点和父节点</span></span><br><span class="line">			<span class="built_in">std</span>::swap(arr[cur], arr[child]);</span><br><span class="line">			<span class="comment">//此时child指向的是原来的父结点</span></span><br><span class="line">			<span class="comment">//继续判断原来的父结点是否需要继续调整</span></span><br><span class="line">			cur = child;</span><br><span class="line">			child = <span class="number">2</span> * child + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//待调整结点小于其左右孩子，不用调整，直接结束</span></span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heap_sort</span><span class="params">(<span class="keyword">int</span>* arr, <span class="keyword">int</span> <span class="built_in">size</span>)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//建堆: 最后一个非叶子结点的位置是i = (size - 1) / 2，从它开始依次向上调整</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = (<span class="built_in">size</span> - <span class="number">1</span>) / <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">		adjust_heap(arr, i, <span class="built_in">size</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将大根堆反向输出</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">size</span> - <span class="number">1</span>; i &gt; <span class="number">0</span>; --i) &#123;</span><br><span class="line">		<span class="built_in">std</span>::swap(arr[i], arr[<span class="number">0</span>]);</span><br><span class="line">		adjust_heap(arr, <span class="number">0</span>, i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://github.com/Morakito/Blog-Images/raw/sort/%E5%A0%86%E6%8E%92%E5%BA%8F.gif" alt="堆排序动态图"></p>
 <h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><p><strong>思路：</strong><br>前提要求：输入的数据必须是有<strong>确定范围</strong>的整数<br>1，找出待排序数组中最大的和最小的元素<br>2，统计数组中值为i的元素出现的次数，存储在help[i]<br>3，对计数数组进行累加help[i] += help[i - 1];<br>4，反向填充目标数组</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*计数排序*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">count_sort</span><span class="params">(<span class="keyword">int</span>* arr, <span class="keyword">const</span> <span class="keyword">int</span> <span class="built_in">size</span>, <span class="keyword">const</span> <span class="keyword">int</span> <span class="built_in">min</span>, <span class="keyword">const</span> <span class="keyword">int</span> <span class="built_in">max</span>)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//用于计数的数组,初始元素都是0</span></span><br><span class="line">	<span class="keyword">int</span>* help = <span class="keyword">new</span> <span class="keyword">int</span>[(<span class="built_in">std</span>::<span class="keyword">size_t</span>)<span class="built_in">max</span> - <span class="built_in">min</span> + <span class="number">1</span>]();</span><br><span class="line">	<span class="comment">//计算数组中每个元素i出现的次数，存储到help【i】中</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i) &#123;</span><br><span class="line">		help[arr[i] - <span class="built_in">min</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//计算数组中小于等于每个元素的个数</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">min</span> + <span class="number">1</span>; i &lt;= <span class="built_in">max</span>; ++i) &#123;</span><br><span class="line">		help[i - <span class="built_in">min</span>] = help[i - <span class="built_in">min</span>] + help[i - <span class="number">1</span> - <span class="built_in">min</span>];;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将排序结果存放在result中</span></span><br><span class="line">	<span class="keyword">int</span>* res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="built_in">size</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">size</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">		res[help[arr[i] - <span class="built_in">min</span>] - <span class="number">1</span>] = arr[i];</span><br><span class="line">		--help[arr[i] - <span class="built_in">min</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将res数组里的元素复制到arr数组中</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i) &#123;</span><br><span class="line">		arr[i] = res[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">delete</span>[] res;</span><br><span class="line">	<span class="keyword">delete</span>[] help;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">count_sort</span><span class="params">(<span class="keyword">int</span>* arr, <span class="keyword">const</span> <span class="keyword">int</span> <span class="built_in">size</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">min</span> = arr[<span class="number">0</span>], <span class="built_in">max</span> = arr[<span class="number">0</span>];</span><br><span class="line">	<span class="comment">//寻找最大值max和最小值min</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">size</span>; ++i) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">min</span> &gt; arr[i]) <span class="built_in">min</span> = arr[i];</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">max</span> &lt; arr[i]) <span class="built_in">max</span> = arr[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//用于计数的数组,初始元素都是0</span></span><br><span class="line">	<span class="keyword">int</span>* help = <span class="keyword">new</span> <span class="keyword">int</span>[(<span class="built_in">std</span>::<span class="keyword">size_t</span>)<span class="built_in">max</span> - <span class="built_in">min</span> + <span class="number">1</span>]();</span><br><span class="line">	<span class="comment">//计算数组中每个元素i出现的次数，存储到help【i】中</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i) &#123;</span><br><span class="line">		help[arr[i] - <span class="built_in">min</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//计算数组中小于等于每个元素的个数</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">min</span> + <span class="number">1</span>; i &lt;= <span class="built_in">max</span>; ++i) &#123;</span><br><span class="line">		help[i - <span class="built_in">min</span>] = help[i - <span class="built_in">min</span>] + help[i - <span class="number">1</span> - <span class="built_in">min</span>];;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将排序结果存放在result中</span></span><br><span class="line">	<span class="keyword">int</span>* res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="built_in">size</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">size</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">		res[help[arr[i] - <span class="built_in">min</span>] - <span class="number">1</span>] = arr[i];</span><br><span class="line">		--help[arr[i] - <span class="built_in">min</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将res数组里的元素复制到arr数组中</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i) &#123;</span><br><span class="line">		arr[i] = res[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">delete</span>[] res;</span><br><span class="line">	<span class="keyword">delete</span>[] help;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://github.com/Morakito/Blog-Images/raw/sort/%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F.gif" alt="计数排序动态图"></p>
-<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p><strong>思路：</strong></p>
+<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p><strong>思路：</strong><br>1，原理是将数组分散到数量有限的箱子里，然后对每个桶再排序，最后将各个桶中的数据有序的合并起来。<br>2，计数排序是桶排序的一种特殊情况，每个桶中只有一个元素</p>
 ]]></content>
       <categories>
         <category>算法</category>

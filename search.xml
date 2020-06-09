@@ -76,6 +76,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>博客技巧</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常见10种排序算法</title>
     <url>/2020/06/%E7%AE%97%E6%B3%95/%E5%B8%B8%E8%A7%8110%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="常见的排序算法可以分成两类"><a href="#常见的排序算法可以分成两类" class="headerlink" title="常见的排序算法可以分成两类"></a>常见的排序算法可以分成两类</h2><h3 id="非线性时间-比较类排序"><a href="#非线性时间-比较类排序" class="headerlink" title="非线性时间 比较类排序"></a>非线性时间 比较类排序</h3><p>1，通过<strong>比较</strong>来决定元素间的相对次序<br>2，其时间复杂度不能突破O(nlogn)</p>
@@ -115,40 +149,6 @@
       </categories>
       <tags>
         <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
       </tags>
   </entry>
 </search>

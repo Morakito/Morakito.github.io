@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>条款01：视C++为一个语言联邦</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
-<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
-<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
-<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
-<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
+    <title>条款03：尽可能使用const</title>
+    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
+    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
+<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
+<p>1，如果const出现在*****的左边，表示被指物是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
+<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
+<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
+<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
 ]]></content>
       <categories>
         <category>Effective C++</category>
@@ -52,6 +60,22 @@
       </tags>
   </entry>
   <entry>
+    <title>条款01：视C++为一个语言联邦</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
+<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
+<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
+<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
+<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo博客实用技巧</title>
     <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
@@ -81,30 +105,6 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
       <tags>
         <tag>Hexo</tag>
         <tag>Next</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款03：尽可能使用const</title>
-    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
-    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
-<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
-<p>1，如果const出现在*****的左边，表示被指物是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
-<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
-<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
-<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>

@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>条款01：视C++为一个语言联邦</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
-<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
-<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
-<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
-<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>条款02：尽量以const，enum，inline替换#define</title>
     <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
     <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
@@ -54,7 +38,7 @@
   <entry>
     <title>Tiny-Renderer-01  Bresenham画线算法</title>
     <url>/2020/06/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-01/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1，屏幕上的图像本质上是一个个不同颜色的小点<br>2，模型是有大量的三角形网格（mesh）组成的</p>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1，屏幕上的图像本质上是一个个不同颜色的小点<br>2，模型是由大量的三角形网格（mesh）组成的</p>
 <h2 id="版本一"><a href="#版本一" class="headerlink" title="版本一"></a>版本一</h2><p>想要在两点之间画一条线段，本质上就是在这两点之间寻找一系列最接近这条直线的像素点来模拟这条直线。根据Bresenham画线算法，利用直线的参数方程，我们可以写出这样的代码：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">line_1</span><span class="params">(<span class="keyword">int</span> x0, <span class="keyword">int</span> y0, <span class="keyword">int</span> x1, <span class="keyword">int</span> y1, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">float</span> t = <span class="number">0</span>; t &lt; <span class="number">1</span>; t += <span class="number">0.001</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> x = x0 + (x1 - x0) * t;</span><br><span class="line">		<span class="keyword">int</span> y = y0 + (y1 - y0) * t;</span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其中（x0，y0）和（x1，y1）分别是起终点的坐标，image是绘制的目标图片，Color表示这条线段上的点的颜色<br><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/1-1.png" alt="line_1()画出的线段"></p>
@@ -80,8 +64,12 @@
 <p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/1-4.png" alt="line_3()画的三条线段"></p>
 <h2 id="版本三的优化"><a href="#版本三的优化" class="headerlink" title="版本三的优化"></a>版本三的优化</h2><p>1，line_3函数已经是个正确的函数了，它可以在直线陡峭，反向的时候判断修正，画出正确的线段。<br>2，但是为了保证渲染器的高效，我们要尽可能地优化画线函数地效率<br>分析一下存在的效率问题：</p>
 <blockquote>
-<p>   1，被除数x1-x0是常数，可以拿到循环外部<br>   2，</p>
+<p>   1，被除数x1-x0是常数，可以拿到循环外部<br>   2，算法中存在除法和乘法这样低效的运算</p>
 </blockquote>
+<p>我们可以参考中点画线算法的思想，来修正像素的落点，代码修改如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">line_4</span><span class="params">(<span class="keyword">int</span> x0, <span class="keyword">int</span> y0, <span class="keyword">int</span> x1, <span class="keyword">int</span> y1, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//如果陡峭的话,则交换x轴和y轴，用跨度大的轴前进</span></span><br><span class="line">	<span class="keyword">bool</span> steep = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(x0 - x1) &lt; <span class="built_in">std</span>::<span class="built_in">abs</span>(y0 - y1)) &#123;</span><br><span class="line">		<span class="built_in">std</span>::swap(x0, y0);</span><br><span class="line">		<span class="built_in">std</span>::swap(x1, y1);</span><br><span class="line">		steep = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//保证从左向右画线</span></span><br><span class="line">	<span class="keyword">if</span> (x0 &gt; x1) &#123;</span><br><span class="line">		<span class="built_in">std</span>::swap(x0, x1);</span><br><span class="line">		<span class="built_in">std</span>::swap(y0, y1);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//直线斜率的绝对值</span></span><br><span class="line">	<span class="keyword">float</span> k = <span class="built_in">std</span>::<span class="built_in">abs</span>((y1 - y0) / <span class="keyword">float</span>(x1 - x0));</span><br><span class="line">	<span class="keyword">float</span> error = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> x = x0, y = y0; x &lt;= x1; ++x) &#123;</span><br><span class="line">		<span class="keyword">if</span> (steep) &#123;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(y, x, color);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//修正下一个像素的落点</span></span><br><span class="line">		error += k;</span><br><span class="line">		<span class="keyword">if</span> (error &gt; <span class="number">0.5</span>) &#123;</span><br><span class="line">			y += (y1 &gt; y0 ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">			error -= <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="进一步的优化"><a href="#进一步的优化" class="headerlink" title="进一步的优化"></a>进一步的优化</h2><p>我们优化了算法中的除法和乘法，将它们修正成了简单的加法。现在我们要将目光放在算法中的浮点数上。</p>
+<p>//TODO</p>
 ]]></content>
       <categories>
         <category>光栅化渲染器</category>
@@ -107,6 +95,22 @@
 <h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
 <h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>条款01：视C++为一个语言联邦</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
+<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
+<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
+<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
+<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
 ]]></content>
       <categories>
         <category>Effective C++</category>

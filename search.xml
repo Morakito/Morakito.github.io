@@ -1,6 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>条款01：视C++为一个语言联邦</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
+<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
+<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
+<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
+<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>条款02：尽量以const，enum，inline替换#define</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
+    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
+<h4 id="define的问题：定义常量"><a href="#define的问题：定义常量" class="headerlink" title="define的问题：定义常量"></a>define的问题：定义常量</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
+<p>1，难以追踪异常<br>2，无法限制作用域，不提供封装性</p>
+<p>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
+<p>(ps：大写名称通常用于宏)</p>
+<h5 id="两种特殊情况"><a href="#两种特殊情况" class="headerlink" title="两种特殊情况"></a>两种特殊情况</h5><h6 id="定义常量指针"><a href="#定义常量指针" class="headerlink" title="定义常量指针"></a>定义常量指针</h6><p>常量定义通常被定义在头文件中，有必要将指针（而不是指针所指之物）声名为const<br>例如定义一个常量字符串</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> authorName = <span class="string">"Scott Meyers"</span>;</span><br></pre></td></tr></table></figure>
+<p>一种更好的方式：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">authorName</span><span class="params">(<span class="string">"Scott Meyers"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h6 id="定义class专属常量（限制作用域）"><a href="#定义class专属常量（限制作用域）" class="headerlink" title="定义class专属常量（限制作用域）"></a>定义class专属常量（限制作用域）</h6><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> NumTurns;  <span class="comment">//声名式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> GamePlayer::NUmTurns = <span class="number">5</span>;   <span class="comment">//定义式</span></span><br></pre></td></tr></table></figure>
+<p>（ps：只要不取NumTurns的地址，则无需提供定义式，即声名时便赋予初值）<br><strong>另一种方式：使用枚举类型</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">enum</span> &#123; NumTurns = <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> scores[NumTurns];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>认识 enum hack：<br>1，更像#define：不能取enum和#define的地址，避免非必要的内存分配<br>2，模板元变成的基础技术</p>
+<h4 id="define的问题：宏表达式"><a href="#define的问题：宏表达式" class="headerlink" title="define的问题：宏表达式"></a>define的问题：宏表达式</h4><p>宏表达式的样子像函数，但是由于会被替换成实际代码，行为和函数也不同，容易造成错误</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用a和b中的较大者为参数来调用f()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_WITH_MAX(a, b) f((a) &gt; (b) ? (a) : (b))</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用inline替换：</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;Type T&gt;      <span class="comment">//不清楚a和b的类型</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWIthMax</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span></span>&#123;</span><br><span class="line">  f(a &gt; b ? a : b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>有了const、enum、inline，降低了对预处理器（尤其是#define）的需求，但是#include仍然是必须的，#ifdef/#ifndef也用于控制编译<br><strong>请记住：</strong></p>
+<ul>
+<li>对于常量，最好以const对象或者enum替换#define</li>
+<li>对于形似函数的宏，最好用inline函数替换#define</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tiny-Renderer-01  Bresenham画线算法</title>
+    <url>/2020/06/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-01/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1，屏幕上的图像本质上是一个个不同颜色的小点<br>2，模型是有大量的三角形网格（mesh）组成的</p>
+<h2 id="版本一"><a href="#版本一" class="headerlink" title="版本一"></a>版本一</h2><p>想要在两点之间画一条线段，本质上就是在这两点之间寻找一系列最接近这条直线的像素点来模拟这条直线。根据Bresenham画线算法，利用直线的参数方程，我们可以写出这样的代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">line_1</span><span class="params">(<span class="keyword">int</span> x0, <span class="keyword">int</span> y0, <span class="keyword">int</span> x1, <span class="keyword">int</span> y1, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">float</span> t = <span class="number">0</span>; t &lt; <span class="number">1</span>; t += <span class="number">0.001</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> x = x0 + (x1 - x0) * t;</span><br><span class="line">		<span class="keyword">int</span> y = y0 + (y1 - y0) * t;</span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中（x0，y0）和（x1，y1）分别是起终点的坐标，image是绘制的目标图片，Color表示这条线段上的点的颜色<br><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/1-1.png" alt="line_1()画出的线段"></p>
+<h2 id="版本二"><a href="#版本二" class="headerlink" title="版本二"></a>版本二</h2><p>line_1函数首先是低效的，但其实它最大的问题在于<strong>间隔常数</strong>的选择，上述代码中我选择了0.001作为步长，画出来的线段像素点很密集，但是如果我将常数选择为0.01甚至是0.1，那么将会画出下面这样的线段：<br><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/1-2.png" alt="line_1()画出的像我头发一样稀疏的线段"></p>
+<p>1，当间隔常数选择过大时，画出来的线段过于稀疏。<br>2，当间隔常数选择过小时，画出来的线段虽然很密集，但是会出现很多点重合在一起的情况，这样大大降低了画线的效率<br>可以这样认为，间隔常数代表了每次前进的步长，其实就是控制了两点之间线段上<strong>像素点的个数</strong>，我们可以这样改写代码（仍然存在问题）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">line_2</span><span class="params">(<span class="keyword">int</span> x0, <span class="keyword">int</span> y0, <span class="keyword">int</span> x1, <span class="keyword">int</span> y1, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> x = x0; x &lt;= x1; x++) &#123;</span><br><span class="line">		<span class="comment">//这里需注意不能除以int类型的</span></span><br><span class="line">		<span class="keyword">float</span> t = (x - x0) / (<span class="keyword">float</span>)(x1 - x0);</span><br><span class="line">		<span class="keyword">int</span> y = y0 * (<span class="number">1.0</span> - t) + y1 * (<span class="keyword">double</span>)t;</span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（注意：需要将x1-x0的结果转换成浮点数类型，不然会在接下来的除法中损失精度）<br>用上面的画线算法来试着画三条线段：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">line_2(<span class="number">20</span>, <span class="number">13</span>, <span class="number">40</span>, <span class="number">80</span>, <span class="built_in">image</span>, Color(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>));</span><br><span class="line"><span class="comment">//下面两条线段方向相反，颜色一白一红</span></span><br><span class="line">line_2(<span class="number">13</span>, <span class="number">20</span>, <span class="number">80</span>, <span class="number">40</span>, <span class="built_in">image</span>, Color(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>));</span><br><span class="line">line_2(<span class="number">80</span>, <span class="number">40</span>, <span class="number">13</span>, <span class="number">20</span>, <span class="built_in">image</span>, Color(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>));</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/1-3.png" alt="line_2()画的三条线段"><br>1，平缓的白色线段表现良好，像素点密集；陡峭的红色线段表现一般，像素点较为稀疏。<br>2，这里我们画了三条线，但是只出现了两条线。<br>仔细分析一下：</p>
+<blockquote>
+<p>   我们先画了从（13, 20）到（80, 40）的白色线段；然后紧接着画了从（80, 40）到（13, 20）的红色线段。按照我们设想的来说，应该是后画的红色会覆盖掉先画的白色线&gt; 段。但是程序没有按照我们预期的执行，红色线段没有出现，也就是没有绘制。这也就是意味着，line_2函数是否执行跟线段的方向有关。line_2函数不满足<strong>对称性</strong>。</p>
+</blockquote>
+<h2 id="版本三"><a href="#版本三" class="headerlink" title="版本三"></a>版本三</h2><p>现在我们需要解决版本二中画线函数的问题：</p>
+<blockquote>
+<p>  （1）当线段陡峭的时候（斜率大于1），画出来的线段像素点比较稀疏<br>  （2）若x0 &lt; x1，则无法画线（for循环的初始条件）</p>
+</blockquote>
+<p>我们的方法是：</p>
+<blockquote>
+<p>  （1）当线段陡峭时，交换x轴和y轴，用<strong>跨度较大的维度前进</strong>，画出较多的像素点<br>  （2）判断x0和x1的大小关系，保证<strong>从左向右</strong>画线</p>
+</blockquote>
+<p>修正的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">line_3</span><span class="params">(<span class="keyword">int</span> x0, <span class="keyword">int</span> y0, <span class="keyword">int</span> x1, <span class="keyword">int</span> y1, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//是否陡峭</span></span><br><span class="line">	<span class="comment">//如果陡峭的话,则交换x轴和y轴，用跨度大的轴前进</span></span><br><span class="line">	<span class="keyword">bool</span> steep = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(x0 - x1) &lt; <span class="built_in">std</span>::<span class="built_in">abs</span>(y0 - y1)) &#123;</span><br><span class="line">		<span class="built_in">std</span>::swap(x0, y0);</span><br><span class="line">		<span class="built_in">std</span>::swap(x1, y1);</span><br><span class="line">		steep = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//保证从左向右画线</span></span><br><span class="line">	<span class="keyword">if</span> (x0 &gt; x1) &#123;</span><br><span class="line">		<span class="built_in">std</span>::swap(x0, x1);</span><br><span class="line">		<span class="built_in">std</span>::swap(y0, y1);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> x = x0; x &lt;= x1; x++) &#123;</span><br><span class="line">		<span class="keyword">float</span> t = (x - x0) / (<span class="keyword">float</span>)(x1 - x0);</span><br><span class="line">		<span class="keyword">int</span> y = y0 * (<span class="number">1.0</span> - t) + y1 * (<span class="keyword">double</span>)t;</span><br><span class="line">		<span class="keyword">if</span> (steep) &#123;</span><br><span class="line">			<span class="comment">//前面因为陡峭交换了坐标轴，这里需要交换回来</span></span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(y, x, color);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/1-4.png" alt="line_3()画的三条线段"></p>
+<h2 id="版本三的优化"><a href="#版本三的优化" class="headerlink" title="版本三的优化"></a>版本三的优化</h2><p>1，line_3函数已经是个正确的函数了，它可以在直线陡峭，反向的时候判断修正，画出正确的线段。<br>2，但是为了保证渲染器的高效，我们要尽可能地优化画线函数地效率<br>分析一下存在的效率问题：</p>
+<blockquote>
+<p>   1，被除数x1-x0是常数，可以拿到循环外部<br>   2，</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>光栅化渲染器</category>
+      </categories>
+      <tags>
+        <tag>Bresenham</tag>
+        <tag>画线算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>条款03：尽可能使用const</title>
+    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
+    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
+<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
+<p>1，如果const出现在*****的左边，表示被指物是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
+<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
+<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
+<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
+]]></content>
+      <categories>
+        <category>博客技巧</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常见10种排序算法</title>
     <url>/2020/06/%E7%AE%97%E6%B3%95/%E5%B8%B8%E8%A7%8110%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="常见的排序算法可以分成两类"><a href="#常见的排序算法可以分成两类" class="headerlink" title="常见的排序算法可以分成两类"></a>常见的排序算法可以分成两类</h2><h3 id="非线性时间-比较类排序"><a href="#非线性时间-比较类排序" class="headerlink" title="非线性时间 比较类排序"></a>非线性时间 比较类排序</h3><p>1，通过<strong>比较</strong>来决定元素间的相对次序<br>2，其时间复杂度不能突破O(nlogn)</p>
@@ -56,113 +204,6 @@
       </categories>
       <tags>
         <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款01：视C++为一个语言联邦</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
-<h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p>1，C++以C语言为基础，区块（blocks）、语句（statements）、预处理器（preprocesser）、内置数据类型（build-in data types）、数组（arrays）、指针（pointers）等都来自于C语言。<br>2，但是C语言没有模板（templates），没有异常（exceptions），没有重载（overloading）等概念。</p>
-<h4 id="Object——Oriented-C"><a href="#Object——Oriented-C" class="headerlink" title="Object——Oriented C++"></a>Object——Oriented C++</h4><p>即C++的面向对象部分，C with Classes的诉求：类（classes）、封装（encapsulation）、继承（inheritance）、多态（polymorphism）、虚函数（virtual动态绑定）。</p>
-<h4 id="Template-C"><a href="#Template-C" class="headerlink" title="Template C++"></a>Template C++</h4><p>C++的泛型编程部分。带来了新的编程范型，template metaprogramming（TMP，模板元编程）</p>
-<h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>STL是标准模板库，template库。内置容器（containers）、迭代器（iterators）、算法（algorithm）、函数对象（function objects）</p>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款03：尽可能使用const</title>
-    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
-    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
-<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
-<p>1，如果const出现在*****的左边，表示被指物是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
-<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
-<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
-<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款02：尽量以const，enum，inline替换#define</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
-    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
-<h4 id="define的问题：定义常量"><a href="#define的问题：定义常量" class="headerlink" title="define的问题：定义常量"></a>define的问题：定义常量</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
-<p>1，难以追踪异常<br>2，无法限制作用域，不提供封装性</p>
-<p>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
-<p>(ps：大写名称通常用于宏)</p>
-<h5 id="两种特殊情况"><a href="#两种特殊情况" class="headerlink" title="两种特殊情况"></a>两种特殊情况</h5><h6 id="定义常量指针"><a href="#定义常量指针" class="headerlink" title="定义常量指针"></a>定义常量指针</h6><p>常量定义通常被定义在头文件中，有必要将指针（而不是指针所指之物）声名为const<br>例如定义一个常量字符串</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> authorName = <span class="string">"Scott Meyers"</span>;</span><br></pre></td></tr></table></figure>
-<p>一种更好的方式：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">authorName</span><span class="params">(<span class="string">"Scott Meyers"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<h6 id="定义class专属常量（限制作用域）"><a href="#定义class专属常量（限制作用域）" class="headerlink" title="定义class专属常量（限制作用域）"></a>定义class专属常量（限制作用域）</h6><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> NumTurns;  <span class="comment">//声名式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> GamePlayer::NUmTurns = <span class="number">5</span>;   <span class="comment">//定义式</span></span><br></pre></td></tr></table></figure>
-<p>（ps：只要不取NumTurns的地址，则无需提供定义式，即声名时便赋予初值）<br><strong>另一种方式：使用枚举类型</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">enum</span> &#123; NumTurns = <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> scores[NumTurns];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>认识 enum hack：<br>1，更像#define：不能取enum和#define的地址，避免非必要的内存分配<br>2，模板元变成的基础技术</p>
-<h4 id="define的问题：宏表达式"><a href="#define的问题：宏表达式" class="headerlink" title="define的问题：宏表达式"></a>define的问题：宏表达式</h4><p>宏表达式的样子像函数，但是由于会被替换成实际代码，行为和函数也不同，容易造成错误</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用a和b中的较大者为参数来调用f()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_WITH_MAX(a, b) f((a) &gt; (b) ? (a) : (b))</span></span><br></pre></td></tr></table></figure>
-<p><strong>使用inline替换：</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;Type T&gt;      <span class="comment">//不清楚a和b的类型</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWIthMax</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span></span>&#123;</span><br><span class="line">  f(a &gt; b ? a : b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>有了const、enum、inline，降低了对预处理器（尤其是#define）的需求，但是#include仍然是必须的，#ifdef/#ifndef也用于控制编译<br><strong>请记住：</strong></p>
-<ul>
-<li>对于常量，最好以const对象或者enum替换#define</li>
-<li>对于形似函数的宏，最好用inline函数替换#define</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
-<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
-]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
       </tags>
   </entry>
 </search>

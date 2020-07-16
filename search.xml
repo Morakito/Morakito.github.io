@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>条款03：尽可能使用const</title>
+    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
+    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
+<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
+<p>1，如果const出现在*****的左边，表示被指物是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
+<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
+<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
+<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Unity游戏热更新-2</title>
+    <url>/2020/07/unity/Unity%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B0-2/</url>
+    <content><![CDATA[<h2 id="为什么大家都用Lua而不是ILRuntime呢？"><a href="#为什么大家都用Lua而不是ILRuntime呢？" class="headerlink" title="为什么大家都用Lua而不是ILRuntime呢？"></a>为什么大家都用Lua而不是ILRuntime呢？</h2><p>1，ILRuntime相对于Lua来说还是个新东西，Lua更加成熟<br>2，很多公司都已经有一套成熟的Lua热更新框架了，没有动力使用ILRuntime<br>（Lua热更新是WOW带起来的）</p>
+]]></content>
+      <categories>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>Unity  热更新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>条款02：尽量以const，enum，inline替换#define</title>
+    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
+    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
+<h4 id="define的问题：定义常量"><a href="#define的问题：定义常量" class="headerlink" title="define的问题：定义常量"></a>define的问题：定义常量</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
+<p>1，难以追踪异常<br>2，无法限制作用域，不提供封装性</p>
+<p>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
+<p>(ps：大写名称通常用于宏)</p>
+<h5 id="两种特殊情况"><a href="#两种特殊情况" class="headerlink" title="两种特殊情况"></a>两种特殊情况</h5><h6 id="定义常量指针"><a href="#定义常量指针" class="headerlink" title="定义常量指针"></a>定义常量指针</h6><p>常量定义通常被定义在头文件中，有必要将指针（而不是指针所指之物）声名为const<br>例如定义一个常量字符串</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> authorName = <span class="string">"Scott Meyers"</span>;</span><br></pre></td></tr></table></figure>
+<p>一种更好的方式：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">authorName</span><span class="params">(<span class="string">"Scott Meyers"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h6 id="定义class专属常量（限制作用域）"><a href="#定义class专属常量（限制作用域）" class="headerlink" title="定义class专属常量（限制作用域）"></a>定义class专属常量（限制作用域）</h6><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> NumTurns;  <span class="comment">//声名式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> GamePlayer::NUmTurns = <span class="number">5</span>;   <span class="comment">//定义式</span></span><br></pre></td></tr></table></figure>
+<p>（ps：只要不取NumTurns的地址，则无需提供定义式，即声名时便赋予初值）<br><strong>另一种方式：使用枚举类型</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">enum</span> &#123; NumTurns = <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> scores[NumTurns];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>认识 enum hack：<br>1，更像#define：不能取enum和#define的地址，避免非必要的内存分配<br>2，模板元变成的基础技术</p>
+<h4 id="define的问题：宏表达式"><a href="#define的问题：宏表达式" class="headerlink" title="define的问题：宏表达式"></a>define的问题：宏表达式</h4><p>宏表达式的样子像函数，但是由于会被替换成实际代码，行为和函数也不同，容易造成错误</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用a和b中的较大者为参数来调用f()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_WITH_MAX(a, b) f((a) &gt; (b) ? (a) : (b))</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用inline替换：</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;Type T&gt;      <span class="comment">//不清楚a和b的类型</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWIthMax</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span></span>&#123;</span><br><span class="line">  f(a &gt; b ? a : b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>有了const、enum、inline，降低了对预处理器（尤其是#define）的需求，但是#include仍然是必须的，#ifdef/#ifndef也用于控制编译<br><strong>请记住：</strong></p>
+<ul>
+<li>对于常量，最好以const对象或者enum替换#define</li>
+<li>对于形似函数的宏，最好用inline函数替换#define</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>条款01：视C++为一个语言联邦</title>
     <url>/2020/05/Effective-C++/Effective-CPP-01/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天的C++已经是个多重泛型编程语言，支持面向过程、面向对象、函数编程、泛型、元编程等。可以将C++看成一个由相关语言组成的联邦而非单一语言。</p>
@@ -75,8 +146,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity游戏热更新1</title>
-    <url>/2020/07/unity/unity%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B01/</url>
+    <title>Unity游戏热更新-1</title>
+    <url>/2020/07/unity/Unity%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B0-1/</url>
     <content><![CDATA[<h2 id="什么是热更新"><a href="#什么是热更新" class="headerlink" title="什么是热更新"></a>什么是热更新</h2><h3 id="无热更新游戏"><a href="#无热更新游戏" class="headerlink" title="无热更新游戏"></a>无热更新游戏</h3><p>1，没有热更新的游戏在更新游戏资源（贴图，脚本等）的时候，会让用户去应用市场重新下载完整版的游戏安装包。<br>2，更新过程太过繁琐，要到游戏外部下载安装包；而且下载的安装包容量可能很大。可能仅仅是更新几个皮肤，就要用户重新下载游戏。因此热更新还是很重要的。</p>
 <h3 id="有热更新游戏"><a href="#有热更新游戏" class="headerlink" title="有热更新游戏"></a>有热更新游戏</h3><p>1，游戏在启动之后，自动进行更新。（类似于王者荣耀，英雄联盟等的更新）<br>2，更新流程：</p>
 <blockquote>
@@ -121,69 +192,65 @@
 <h4 id="Lua代码热更新框架要实现的功能"><a href="#Lua代码热更新框架要实现的功能" class="headerlink" title="Lua代码热更新框架要实现的功能"></a>Lua代码热更新框架要实现的功能</h4><p>1，一系列方便、可用的工具库<br>2，一个供Unity端调用的基于事件的Lua框架库<br>3，对Lua代码进行保护（外挂，作弊）</p>
 ]]></content>
       <categories>
-        <category>unity</category>
+        <category>Unity</category>
       </categories>
       <tags>
-        <tag>unity  热更新</tag>
+        <tag>Unity  热更新</tag>
       </tags>
   </entry>
   <entry>
-    <title>条款03：尽可能使用const</title>
-    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
-    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
-<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
-<p>1，如果const出现在*****的左边，表示被指物是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
-<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
-<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
-<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款02：尽量以const，enum，inline替换#define</title>
-    <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
-    <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
-<h4 id="define的问题：定义常量"><a href="#define的问题：定义常量" class="headerlink" title="define的问题：定义常量"></a>define的问题：定义常量</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br></pre></td></tr></table></figure>
-<p>1，难以追踪异常<br>2，无法限制作用域，不提供封装性</p>
-<p>解决办法是：<strong>用const常量替代宏（#define）</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>；</span><br></pre></td></tr></table></figure>
-<p>(ps：大写名称通常用于宏)</p>
-<h5 id="两种特殊情况"><a href="#两种特殊情况" class="headerlink" title="两种特殊情况"></a>两种特殊情况</h5><h6 id="定义常量指针"><a href="#定义常量指针" class="headerlink" title="定义常量指针"></a>定义常量指针</h6><p>常量定义通常被定义在头文件中，有必要将指针（而不是指针所指之物）声名为const<br>例如定义一个常量字符串</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> authorName = <span class="string">"Scott Meyers"</span>;</span><br></pre></td></tr></table></figure>
-<p>一种更好的方式：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">authorName</span><span class="params">(<span class="string">"Scott Meyers"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<h6 id="定义class专属常量（限制作用域）"><a href="#定义class专属常量（限制作用域）" class="headerlink" title="定义class专属常量（限制作用域）"></a>定义class专属常量（限制作用域）</h6><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> NumTurns;  <span class="comment">//声名式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> GamePlayer::NUmTurns = <span class="number">5</span>;   <span class="comment">//定义式</span></span><br></pre></td></tr></table></figure>
-<p>（ps：只要不取NumTurns的地址，则无需提供定义式，即声名时便赋予初值）<br><strong>另一种方式：使用枚举类型</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">enum</span> &#123; NumTurns = <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> scores[NumTurns];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>认识 enum hack：<br>1，更像#define：不能取enum和#define的地址，避免非必要的内存分配<br>2，模板元变成的基础技术</p>
-<h4 id="define的问题：宏表达式"><a href="#define的问题：宏表达式" class="headerlink" title="define的问题：宏表达式"></a>define的问题：宏表达式</h4><p>宏表达式的样子像函数，但是由于会被替换成实际代码，行为和函数也不同，容易造成错误</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用a和b中的较大者为参数来调用f()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_WITH_MAX(a, b) f((a) &gt; (b) ? (a) : (b))</span></span><br></pre></td></tr></table></figure>
-<p><strong>使用inline替换：</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;Type T&gt;      <span class="comment">//不清楚a和b的类型</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWIthMax</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span></span>&#123;</span><br><span class="line">  f(a &gt; b ? a : b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
 
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>有了const、enum、inline，降低了对预处理器（尤其是#define）的需求，但是#include仍然是必须的，#ifdef/#ifndef也用于控制编译<br><strong>请记住：</strong></p>
-<ul>
-<li>对于常量，最好以const对象或者enum替换#define</li>
-<li>对于形似函数的宏，最好用inline函数替换#define</li>
-</ul>
+<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
 ]]></content>
       <categories>
-        <category>Effective C++</category>
+        <category>博客技巧</category>
       </categories>
       <tags>
-        <tag>C++</tag>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【LeetCode】37 - 解数独</title>
+    <url>/2020/07/LeetCode/%E3%80%90LeetCode%E3%80%9137%20-%20%E8%A7%A3%E6%95%B0%E7%8B%AC/</url>
+    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>编写一个程序，通过已填充的空格来解决数独问题。</p>
+<p>一个数独的解法需遵循如下规则：</p>
+<p>数字 1-9 在每一行只能出现一次。<br>数字 1-9 在每一列只能出现一次。<br>数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。<br>空白格用 ‘.’ 表示。</p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p><strong>回溯法</strong>：从左到右，从上到下，遇到空格依次填入数字1-9，然后判断是否合法。如果该位置的数字合法，则继续向前试探；如果数字不合法，则回溯到上一步，填入下一个数字。如果该格子填入了数字1-9都不合法，那么就要继续回溯，以此类推。当所有的格子都被填完了，且合法，那么数独就解出来了。</p>
+<h3 id="判断数字是否合法"><a href="#判断数字是否合法" class="headerlink" title="判断数字是否合法"></a>判断数字是否合法</h3><p>要想使得该空格上的数字合法，要满足下面三个要求（假设board[row][col] = num）:<br>1，第row行无数字num<br>2，第col列无数字num<br>3，该空格所属九宫格也没有数字num</p>
+<h3 id="遍历该空格所处九宫格"><a href="#遍历该空格所处九宫格" class="headerlink" title="遍历该空格所处九宫格"></a>遍历该空格所处九宫格</h3><p>1，首先我们要找到该九宫格的左上角位置，从它开始遍历。即：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">board[<span class="number">3</span> * (row / <span class="number">3</span>)][<span class="number">3</span> * (col / <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+<p>然后依次从左上角格子开始，依次（从左到右，从上到下）遍历九宫格内的九个格子，这里需要巧妙使用除法（/）和取模（%）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//i从0-8</span></span><br><span class="line">board[<span class="number">3</span> * (row / <span class="number">3</span>) + i / <span class="number">3</span>][<span class="number">3</span> * (col / <span class="number">3</span>) + i % <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        dfs(board);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span></span>&#123;</span><br><span class="line">        <span class="comment">//遍历所有格子</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; <span class="number">9</span>; row++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col = <span class="number">0</span>; col &lt; <span class="number">9</span>; col++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//是否已经有数字</span></span><br><span class="line">                <span class="keyword">if</span>(board[row][col] != <span class="string">'.'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">//尝试填入数字1-9</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">char</span> num = <span class="string">'1'</span>; num &lt;= <span class="string">'9'</span>; num++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//数字合法，向下试探</span></span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">isValid</span>(board, row, col, num))&#123;</span><br><span class="line">                        board[row][col] = num;</span><br><span class="line">                        <span class="comment">//向下试探</span></span><br><span class="line">                        <span class="keyword">if</span>(dfs(board))&#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="comment">//回溯</span></span><br><span class="line">                        board[row][col] = <span class="string">'.'</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//数字1-9都不合法</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">char</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(board[i][col] == num) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(board[row][i] == num) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(board[<span class="number">3</span> * (row / <span class="number">3</span>) + i / <span class="number">3</span>][<span class="number">3</span> * (col / <span class="number">3</span>) + i % <span class="number">3</span>] == num) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/LeetCode/%E3%80%90LeetCode%E3%80%9137%20-%20%E8%A7%A3%E6%95%B0%E7%8B%AC-1.png" alt="运行结果"></p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>回溯法  数独</tag>
       </tags>
   </entry>
   <entry>
@@ -228,39 +295,6 @@
       <tags>
         <tag>Bresenham</tag>
         <tag>画线算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
-]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
       </tags>
   </entry>
 </search>

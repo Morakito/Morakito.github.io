@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="图形学,消隐,三角形," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言在上一篇的末尾，我们依靠Bresenham画线算法和从.obj文件中读取出来的vertex和face信息来绘制了线框模型。我们知道模型在渲染的时候，多边形会被解算成三角形，而这一次我们的任务就是绘制并填充三角形。 传统方法：扫描线填充算法绘制线框三角形首先我们来绘制一个三角形 12345678910111213141516171819202122&#x2F;&#x2F;绘制三角形void triangle(Vec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tiny-Renderer-02  三角形光栅化+消隐">
+<meta property="og:url" content="http://yoursite.com/2020/07/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-02/index.html">
+<meta property="og:site_name" content="Morakito的blog">
+<meta property="og:description" content="前言在上一篇的末尾，我们依靠Bresenham画线算法和从.obj文件中读取出来的vertex和face信息来绘制了线框模型。我们知道模型在渲染的时候，多边形会被解算成三角形，而这一次我们的任务就是绘制并填充三角形。 传统方法：扫描线填充算法绘制线框三角形首先我们来绘制一个三角形 12345678910111213141516171819202122&#x2F;&#x2F;绘制三角形void triangle(Vec">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-1.png">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-2.png">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-3.png">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-4.png">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-5.png">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-6.png">
+<meta property="og:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-8.png">
+<meta property="article:published_time" content="2020-07-30T02:34:33.000Z">
+<meta property="article:modified_time" content="2020-07-31T12:50:14.772Z">
+<meta property="article:author" content="Morakito">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="消隐">
+<meta property="article:tag" content="三角形">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/光栅化渲染器/Tiny-Renderer-02/"/>
+
+
+
+
+
+  <title>Tiny-Renderer-02  三角形光栅化+消隐 | Morakito的blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Morakito的blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-爱礼">
+          <a href="https://morakito.github.io/LoveHeart/" target="_blank" rel="section noopener">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            爱礼
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morakito">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Morakito的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tiny-Renderer-02  三角形光栅化+消隐</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-30T10:34:33+08:00">
+                2020-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">光栅化渲染器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在上一篇的末尾，我们依靠Bresenham画线算法和从.obj文件中读取出来的vertex和face信息来绘制了线框模型。我们知道模型在渲染的时候，多边形会被解算成三角形，而这一次我们的任务就是绘制并填充三角形。</p>
+<h2 id="传统方法：扫描线填充算法"><a href="#传统方法：扫描线填充算法" class="headerlink" title="传统方法：扫描线填充算法"></a>传统方法：扫描线填充算法</h2><h3 id="绘制线框三角形"><a href="#绘制线框三角形" class="headerlink" title="绘制线框三角形"></a>绘制线框三角形</h3><p>首先我们来绘制一个三角形</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绘制三角形</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">triangle</span><span class="params">(Vec2i t0, Vec2i t1, Vec2i t2, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">line</span>(t0, t1, <span class="built_in">image</span>, color);</span><br><span class="line">	<span class="built_in">line</span>(t1, t2, <span class="built_in">image</span>, color);</span><br><span class="line">	<span class="built_in">line</span>(t2, t0, <span class="built_in">image</span>, color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="function">PNGImage <span class="title">image</span><span class="params">(<span class="number">200</span>,<span class="number">200</span>,RGBCOLOR)</span></span>;</span><br><span class="line"></span><br><span class="line">	Vec2i t0[<span class="number">3</span>] = &#123; Vec2i(<span class="number">10</span>, <span class="number">70</span>),   Vec2i(<span class="number">50</span>, <span class="number">160</span>),  Vec2i(<span class="number">70</span>, <span class="number">80</span>) &#125;;</span><br><span class="line">	Vec2i t1[<span class="number">3</span>] = &#123; Vec2i(<span class="number">180</span>, <span class="number">50</span>),  Vec2i(<span class="number">150</span>, <span class="number">1</span>),   Vec2i(<span class="number">70</span>, <span class="number">180</span>) &#125;;</span><br><span class="line">	Vec2i t2[<span class="number">3</span>] = &#123; Vec2i(<span class="number">180</span>, <span class="number">150</span>), Vec2i(<span class="number">120</span>, <span class="number">160</span>), Vec2i(<span class="number">130</span>, <span class="number">180</span>) &#125;;</span><br><span class="line"></span><br><span class="line">	triangle(t0[<span class="number">0</span>], t0[<span class="number">1</span>], t0[<span class="number">2</span>], <span class="built_in">image</span>, red);</span><br><span class="line">	triangle(t1[<span class="number">0</span>], t1[<span class="number">1</span>], t1[<span class="number">2</span>], <span class="built_in">image</span>, white);</span><br><span class="line">	triangle(t2[<span class="number">0</span>], t2[<span class="number">1</span>], t2[<span class="number">2</span>], <span class="built_in">image</span>, green);</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">image</span>.save(<span class="string">"image/2-1.png"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-1.png" alt="线框三角形"><br>1，这里我将画线函数的输入改成了自定义的二维向量，减少函数原型的长度<br>2，绘制线框三角形，即三个顶点两两连接画线即可</p>
+<h3 id="扫描线填充算法"><a href="#扫描线填充算法" class="headerlink" title="扫描线填充算法"></a>扫描线填充算法</h3><p>一个好的填充算法应该具备以下特点：</p>
+<blockquote>
+<p>简单，快速，高效<br>具有对称性：即绘制三角形的结果和输入顶点的顺序无关<br>如果两个三角形共边，则三角形之间需要无缝贴合</p>
+</blockquote>
+<p>传统的扫描线填充算法：</p>
+<blockquote>
+<p>将三角形的顶点顺序按y排序<br>将三角形分成上下两部分<br>分别对上下两部分进行填充</p>
+</blockquote>
+<h3 id="顶点排序"><a href="#顶点排序" class="headerlink" title="顶点排序"></a>顶点排序</h3><p>将三角形的三个顶点t0,t1,t2按照y坐标大小升序排序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//顶点排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">triangle</span><span class="params">(Vec2i t0, Vec2i t1, Vec2i t2, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//将t0，t1，t2按y大小升序排序</span></span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t1.y) <span class="built_in">std</span>::swap(t0, t1);</span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t2.y) <span class="built_in">std</span>::swap(t0, t2);</span><br><span class="line">	<span class="keyword">if</span> (t1.y &gt; t2.y) <span class="built_in">std</span>::swap(t1, t2);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">line</span>(t0, t1, <span class="built_in">image</span>, green);</span><br><span class="line">	<span class="built_in">line</span>(t1, t2, <span class="built_in">image</span>, green);</span><br><span class="line">	<span class="built_in">line</span>(t2, t0, <span class="built_in">image</span>, red);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-2.png" alt=""><br>1，红色边界是完整的边界，绿色边界则包含两部分，我们需要将绿色边界分成上下两部分分别进行填充。<br>2，可以这样来看，过绿色边界上的顶点作一条水平线，分成上下两部分分别进行填充</p>
+<h3 id="绘制边界点"><a href="#绘制边界点" class="headerlink" title="绘制边界点"></a>绘制边界点</h3><p>根据绿色边界上的转折点（排序之后的t1），将三角形分成上下两部分，分别绘制出边界点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绘制边界点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">triangle</span><span class="params">(Vec2i t0, Vec2i t1, Vec2i t2, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//顶点升序排序t0,t1,t2</span></span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t1.y) <span class="built_in">std</span>::swap(t0, t1);</span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t2.y) <span class="built_in">std</span>::swap(t0, t2);</span><br><span class="line">	<span class="keyword">if</span> (t1.y &gt; t2.y) <span class="built_in">std</span>::swap(t1, t2);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//总高度</span></span><br><span class="line">	<span class="keyword">int</span> total_height = t2.y - t0.y;</span><br><span class="line">	<span class="comment">//绘制下半部分</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> y = t0.y; y &lt;= t1.y; y++) &#123;</span><br><span class="line">		<span class="keyword">int</span> segment_height = t1.y - t0.y + <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//直线的参数方程</span></span><br><span class="line">		<span class="keyword">float</span> tA = (<span class="keyword">float</span>)(y - t0.y) / total_height;</span><br><span class="line">		<span class="keyword">float</span> tB = (<span class="keyword">float</span>)(y - t0.y) / segment_height;</span><br><span class="line">		<span class="comment">//左右两部分的点</span></span><br><span class="line">		Vec2i A = t0 + (t2 - t0) * tA;</span><br><span class="line">		Vec2i B = t0 + (t1 - t0) * tB;</span><br><span class="line">		<span class="comment">//画点</span></span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(A.x, y, red);</span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(B.x, y, green);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//绘制上半部分</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> y = t1.y; y &lt;= t2.y; y++) &#123;</span><br><span class="line">		<span class="keyword">int</span> segment_height = t2.y - t1.y + <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//直线的参数方程</span></span><br><span class="line">		<span class="keyword">float</span> tA = (<span class="keyword">float</span>)(y - t0.y) / total_height;</span><br><span class="line">		<span class="keyword">float</span> tB = (<span class="keyword">float</span>)(y - t1.y) / segment_height;</span><br><span class="line">		<span class="comment">//左右两部分的点</span></span><br><span class="line">		Vec2i A = t0 + (t2 - t0) * tA;</span><br><span class="line">		Vec2i B = t1 + (t2 - t1) * tB;</span><br><span class="line">		<span class="comment">//画点</span></span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(A.x, y, red);</span><br><span class="line">		<span class="built_in">image</span>.<span class="built_in">set</span>(B.x, y, green);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-3.png" alt="三角形的边界点"></p>
+<h3 id="填充三角形"><a href="#填充三角形" class="headerlink" title="填充三角形"></a>填充三角形</h3><p>1，仔细观察绘制出的边界点和最开始绘制出的线框三角形，可以发现在直线斜率绝对值（|k|）较小的时候，会出现直线不连续，点迹稀疏的现象。<br>2，这里的相邻稀疏点迹y值差1，这时候只需要将左右两个边界的点连接（扫描线填充）起来就可以了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//填充三角形</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">triangle</span><span class="params">(Vec2i t0, Vec2i t1, Vec2i t2, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//顶点升序排序t0,t1,t2</span></span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t1.y) <span class="built_in">std</span>::swap(t0, t1);</span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t2.y) <span class="built_in">std</span>::swap(t0, t2);</span><br><span class="line">	<span class="keyword">if</span> (t1.y &gt; t2.y) <span class="built_in">std</span>::swap(t1, t2);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//总高度</span></span><br><span class="line">	<span class="keyword">int</span> total_height = t2.y - t0.y;</span><br><span class="line">	<span class="comment">//绘制下半部分</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> y = t0.y; y &lt;= t1.y; y++) &#123;</span><br><span class="line">		<span class="keyword">int</span> segment_height = t1.y - t0.y + <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//直线的参数方程</span></span><br><span class="line">		<span class="keyword">float</span> tA = (<span class="keyword">float</span>)(y - t0.y) / total_height;</span><br><span class="line">		<span class="keyword">float</span> tB = (<span class="keyword">float</span>)(y - t0.y) / segment_height;</span><br><span class="line">		<span class="comment">//左右两部分的点</span></span><br><span class="line">		Vec2i A = t0 + (t2 - t0) * tA;</span><br><span class="line">		Vec2i B = t0 + (t1 - t0) * tB;</span><br><span class="line">		<span class="comment">//填充AB之间的点，保证从左到右填充</span></span><br><span class="line">		<span class="keyword">if</span> (A.x &gt; B.x) <span class="built_in">std</span>::swap(A, B);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = A.x; x &lt;= B.x; x++) &#123;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//绘制上半部分</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> y = t1.y; y &lt;= t2.y; y++) &#123;</span><br><span class="line">		<span class="keyword">int</span> segment_height = t2.y - t1.y + <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//直线的参数方程</span></span><br><span class="line">		<span class="keyword">float</span> tA = (<span class="keyword">float</span>)(y - t0.y) / total_height;</span><br><span class="line">		<span class="keyword">float</span> tB = (<span class="keyword">float</span>)(y - t1.y) / segment_height;</span><br><span class="line">		<span class="comment">//左右两部分的点</span></span><br><span class="line">		Vec2i A = t0 + (t2 - t0) * tA;</span><br><span class="line">		Vec2i B = t1 + (t2 - t1) * tB;</span><br><span class="line">		<span class="comment">//填充AB之间的点，保证从左到右填充</span></span><br><span class="line">		<span class="keyword">if</span> (A.x &gt; B.x) <span class="built_in">std</span>::swap(A, B);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = A.x; x &lt;= B.x; x++) &#123;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-4.png" alt="三角形填充"></p>
+<h3 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h3><p>1，在函数的一开始，需要对传入的点参数进行判断<br>2，绘制上下两部分的循环思路类似，可以合并在一起</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码优化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">triangle</span><span class="params">(Vec2i t0, Vec2i t1, Vec2i t2, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//参数判断：传入的三个点共线，直接返回</span></span><br><span class="line">	<span class="keyword">if</span> (t0.y == t1.y &amp;&amp; t0.y == t2.y) <span class="keyword">return</span>;</span><br><span class="line">	<span class="comment">//顶点升序排序t0,t1,t2</span></span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t1.y) <span class="built_in">std</span>::swap(t0, t1);</span><br><span class="line">	<span class="keyword">if</span> (t0.y &gt; t2.y) <span class="built_in">std</span>::swap(t0, t2);</span><br><span class="line">	<span class="keyword">if</span> (t1.y &gt; t2.y) <span class="built_in">std</span>::swap(t1, t2);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//总高度</span></span><br><span class="line">	<span class="keyword">int</span> total_height = t2.y - t0.y;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; total_height; i++) &#123;</span><br><span class="line">		<span class="comment">//是否是上半部分</span></span><br><span class="line">		<span class="keyword">bool</span> second_half = i &gt; (t1.y - t0.y) || (t1.y == t0.y);</span><br><span class="line">		<span class="keyword">int</span> segment_height = second_half ? (t2.y - t1.y) : (t1.y - t0.y);</span><br><span class="line">		<span class="comment">//参数方程</span></span><br><span class="line">		<span class="keyword">float</span> tA = (<span class="keyword">float</span>)i / total_height;</span><br><span class="line">		<span class="keyword">float</span> tB = (<span class="keyword">float</span>)(i - (second_half ? (t1.y - t0.y) : <span class="number">0</span>)) / segment_height;</span><br><span class="line">		<span class="comment">//边界点</span></span><br><span class="line">		Vec2i A = t0 + (t2 - t0) * tA;</span><br><span class="line">		Vec2i B = second_half ? (t1 + (t2 - t1) * tB) : (t0 + (t1 - t0) * tB);</span><br><span class="line">		<span class="comment">//填充</span></span><br><span class="line">		<span class="keyword">if</span> (A.x &gt; B.x) <span class="built_in">std</span>::swap(A, B);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = A.x; x &lt;= B.x; x++) &#123;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(x, t0.y + i, color);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="新的方法：边界框-判断点是否在三角形内部"><a href="#新的方法：边界框-判断点是否在三角形内部" class="headerlink" title="新的方法：边界框+判断点是否在三角形内部"></a>新的方法：边界框+判断点是否在三角形内部</h2><p>1，扫描线填充算法思路比较简单，但是实现起来代码稍显庞杂，而且适合于单线程的CPU<br>2，这里有一种更简单的方法，使用判断点是否在三角形内+边界框：遍历边界框内的所有点，若该点在三角形内，则画点；否则就跳过。</p>
+<h3 id="判断点是否在三角形内"><a href="#判断点是否在三角形内" class="headerlink" title="判断点是否在三角形内"></a>判断点是否在三角形内</h3><p>给定三角形ABC和一点P，判断点P是否在三角形ABC内部，有很多方法：</p>
+<blockquote>
+<p>内角和法<br>射线法检验交点数<br>同向法<br>重心法</p>
+</blockquote>
+<p>其中重心法使用了一些数学方法，速度很快，这里我们选择使用重心法。<br>1，对于平面内任意一点，都可以由如下方程来表示：</p>
+<center>P = A  + u * (C – A) + v * (B - A)</center>
+<center>  = (1 - u - v) * A + u * B+ v * C</center>
+则点P在三角形内部的条件是：
+<center>u >= 0</center>
+<center>v >= 0</center>
+<center>u + v <= 1</center>
+2，将改方程简单变形求解出u，v即可
+下面是实现代码：
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//向量的叉乘</span></span><br><span class="line"><span class="keyword">inline</span> Vec3&lt;t&gt; <span class="keyword">operator</span> ^(<span class="keyword">const</span> Vec3&lt;t&gt; &amp;v) <span class="keyword">const</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Vec3&lt;t&gt;(y*v.z-z*v.y, z*v.x-x*v.z, x*v.y-y*v.x)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">Vec3f barycentric(Vec2i* pts, Vec2i P) &#123;</span><br><span class="line">	</span><br><span class="line">	Vec3f v1 = &#123; (<span class="keyword">float</span>)(pts[<span class="number">2</span>].x - pts[<span class="number">0</span>].x), (<span class="keyword">float</span>)(pts[<span class="number">1</span>].x - pts[<span class="number">0</span>].x), (<span class="keyword">float</span>)(pts[<span class="number">0</span>].x - P.x) &#125;;</span><br><span class="line">	Vec3f v2 = &#123; (<span class="keyword">float</span>)(pts[<span class="number">2</span>].y - pts[<span class="number">0</span>].y), (<span class="keyword">float</span>)(pts[<span class="number">1</span>].y - pts[<span class="number">0</span>].y), (<span class="keyword">float</span>)(pts[<span class="number">0</span>].y - P.y) &#125;;</span><br><span class="line"></span><br><span class="line">	Vec3f u = v1 ^ v2;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(u.y &lt; <span class="number">1</span>)) <span class="keyword">return</span> Vec3f(<span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> Vec3f(<span class="number">1.0f</span> - (u.x + u.y) / u.z, u.y / u.z, u.x / u.z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三角形填充算法"><a href="#三角形填充算法" class="headerlink" title="三角形填充算法"></a>三角形填充算法</h3><p>1，上面实现了判断一个点是否在三角形内部，下面加上对三角形边界框的限制即可，这里使用左下和右上两个点来记录矩形边界框<br>2，在进行填充的时候，遍历边界框内的所有像素点，判断是否在三角形内部即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">triangle</span><span class="params">(Vec2i* pts, PNGImage&amp; <span class="built_in">image</span>, Color color)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//边界框，左下，右上</span></span><br><span class="line">	Vec2i bboxmax = &#123; <span class="built_in">image</span>.get_width() - <span class="number">1</span>,<span class="built_in">image</span>.get_height()<span class="number">-1</span> &#125;;</span><br><span class="line">	Vec2i bboxmin = &#123; <span class="number">0</span>,<span class="number">0</span> &#125;;</span><br><span class="line">	<span class="comment">// 图像大小的限制</span></span><br><span class="line">	Vec2i clamp = &#123; <span class="built_in">image</span>.get_width() - <span class="number">1</span>,<span class="built_in">image</span>.get_height() - <span class="number">1</span> &#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">		bboxmin.x = <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">0</span>, <span class="built_in">std</span>::<span class="built_in">min</span>(bboxmin.x, pts[i].x));</span><br><span class="line">		bboxmax.x = <span class="built_in">std</span>::<span class="built_in">min</span>(clamp.x, <span class="built_in">std</span>::<span class="built_in">max</span>(bboxmax.x, pts[i].x));</span><br><span class="line">		</span><br><span class="line">		bboxmin.y = <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">0</span>, <span class="built_in">std</span>::<span class="built_in">min</span>(bboxmin.y, pts[i].y));</span><br><span class="line">		bboxmax.y = <span class="built_in">std</span>::<span class="built_in">min</span>(clamp.y, <span class="built_in">std</span>::<span class="built_in">max</span>(bboxmax.y, pts[i].y));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//当前点</span></span><br><span class="line">	Vec2i cur;</span><br><span class="line">	<span class="keyword">for</span> (cur.x = bboxmin.x; cur.x &lt;= bboxmax.x; cur.x++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (cur.y = bboxmin.y; cur.y &lt;= bboxmax.y; cur.y++) &#123;</span><br><span class="line">			Vec3f u = barycentric(pts, cur);</span><br><span class="line">			<span class="keyword">if</span> (u.x &lt; <span class="number">0</span> || u.y &lt; <span class="number">0</span> || u.z &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">image</span>.<span class="built_in">set</span>(cur.x, cur.y, color);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-5.png" alt="边界框+三角形内部法"></p>
+<h2 id="平面阴影渲染"><a href="#平面阴影渲染" class="headerlink" title="平面阴影渲染"></a>平面阴影渲染</h2><h3 id="渲染测试"><a href="#渲染测试" class="headerlink" title="渲染测试"></a>渲染测试</h3><p>在上一篇中，我们渲染了线框模型。上面我们完成了三角形的填充算法，可以尝试渲染面填充的模型，这里我们对三角面随机填充颜色：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//随机填充颜色</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="function">PNGImage <span class="title">image</span><span class="params">(<span class="built_in">width</span>, <span class="built_in">height</span>,RGBCOLOR)</span></span>;</span><br><span class="line"></span><br><span class="line">	Model* model = <span class="keyword">new</span> Model(<span class="string">"obj/african_head.obj"</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; model-&gt;nfaces(); i++) &#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; face = model-&gt;face(i);</span><br><span class="line">		Vec2i screen_coords[<span class="number">3</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">			Vec3f world_coords = model-&gt;vert(face[j]);</span><br><span class="line">			screen_coords[j] = Vec2i((world_coords.x + <span class="number">1.</span>) * <span class="built_in">width</span> / <span class="number">2.</span>, (world_coords.y + <span class="number">1.</span>) * <span class="built_in">height</span> / <span class="number">2.</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		triangle(screen_coords[<span class="number">0</span>], screen_coords[<span class="number">1</span>], screen_coords[<span class="number">2</span>], <span class="built_in">image</span>, Color(rand() % <span class="number">255</span>, rand() % <span class="number">255</span>, rand() % <span class="number">255</span>, <span class="number">255</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">image</span>.save(<span class="string">"image/2-7.png"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-6.png" alt="随机填充颜色"></p>
+<h3 id="光照"><a href="#光照" class="headerlink" title="光照"></a>光照</h3><p>接下来我们给模型添加一些简单的光影信息，首先需要明确的是：<br>1，在同样的光线强度下，当多边形与光线方向正交时，它被照亮得最明亮。<br>2，如果多边形平行于光矢量，我们得到零光照。<br>把这两句常识转换成数学上的专业术语便是：</p>
+<center>光照强度等于光的方向向量和给定三角形法线法向的标量积。</center>
+我们又知道三角形的发现方向可以通过计算两条边的叉乘获得。
+我们可以按照下面的方式进行渲染：
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//光影</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="function">PNGImage <span class="title">image</span><span class="params">(<span class="built_in">width</span>, <span class="built_in">height</span>,RGBCOLOR)</span></span>;</span><br><span class="line"></span><br><span class="line">	Model* model = <span class="keyword">new</span> Model(<span class="string">"obj/african_head.obj"</span>);</span><br><span class="line">    <span class="comment">//光线方向</span></span><br><span class="line">	<span class="function">Vec3f <span class="title">light_dir</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>)</span></span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; model-&gt;nfaces(); i++) &#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;face = model-&gt;face(i);</span><br><span class="line">		<span class="comment">//屏幕坐标</span></span><br><span class="line">		Vec2i screen_coords[<span class="number">3</span>];</span><br><span class="line">		<span class="comment">//世界坐标</span></span><br><span class="line">		Vec3f world_coords[<span class="number">3</span>];</span><br><span class="line">		<span class="comment">//世界坐标到屏幕坐标的转换</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">			Vec3f v = model-&gt;vert(face[j]);</span><br><span class="line">			screen_coords[j] = Vec2i((v.x + <span class="number">1.0f</span>) * <span class="built_in">width</span> / <span class="number">2.0f</span>, (v.y + <span class="number">1.0f</span>) * <span class="built_in">height</span> / <span class="number">2.0f</span>);</span><br><span class="line">			world_coords[j] = v;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//法线</span></span><br><span class="line">		Vec3f n = (world_coords[<span class="number">2</span>] - world_coords[<span class="number">0</span>]) ^ (world_coords[<span class="number">1</span>] - world_coords[<span class="number">0</span>]);</span><br><span class="line">		n.normalize();</span><br><span class="line">		<span class="keyword">float</span> intensity = n * light_dir;</span><br><span class="line">		<span class="keyword">if</span> (intensity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			triangle(screen_coords[<span class="number">0</span>], screen_coords[<span class="number">1</span>], screen_coords[<span class="number">2</span>], <span class="built_in">image</span>, Color(intensity * <span class="number">255</span>, intensity * <span class="number">255</span>, intensity * <span class="number">255</span>, <span class="number">255</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">image</span>.save(<span class="string">"image/2-8.png"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-8.png" alt=""><br>1，这里的光是从正面照射向图片的。<br>2，模型背部的三角面片的法线方向和光的方向是相同的，接收不到光照，计算出来的intensity大于0，这部分的就根据光照被剔除了。这种方法叫做背面剔除（Back-face culling）<br>3，我们可以看到，嘴巴里面的口腔是暴露在外面的（正常的渲染应该被剔除），这里的原因是我们使用的背面剔除方法只适合于凸多边形，不适合凹多边形。我们会在以后完善它（使用Z-buffer）。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 图形学</a>
+          
+            <a href="/tags/%E6%B6%88%E9%9A%90/" rel="tag"># 消隐</a>
+          
+            <a href="/tags/%E4%B8%89%E8%A7%92%E5%BD%A2/" rel="tag"># 三角形</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/LeetCode/%E3%80%90LeetCode%E3%80%9137%20-%20%E8%A7%A3%E6%95%B0%E7%8B%AC/" rel="next" title="【LeetCode】37 - 解数独">
+                <i class="fa fa-chevron-left"></i> 【LeetCode】37 - 解数独
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="Morakito" />
+            
+              <p class="site-author-name" itemprop="name">Morakito</p>
+              <p class="site-description motion-element" itemprop="description">我就喜欢你看不惯我又干不掉我的样子</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Morakito" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:morakito@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传统方法：扫描线填充算法"><span class="nav-number">2.</span> <span class="nav-text">传统方法：扫描线填充算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制线框三角形"><span class="nav-number">2.1.</span> <span class="nav-text">绘制线框三角形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描线填充算法"><span class="nav-number">2.2.</span> <span class="nav-text">扫描线填充算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点排序"><span class="nav-number">2.3.</span> <span class="nav-text">顶点排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制边界点"><span class="nav-number">2.4.</span> <span class="nav-text">绘制边界点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#填充三角形"><span class="nav-number">2.5.</span> <span class="nav-text">填充三角形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码优化"><span class="nav-number">2.6.</span> <span class="nav-text">代码优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新的方法：边界框-判断点是否在三角形内部"><span class="nav-number">3.</span> <span class="nav-text">新的方法：边界框+判断点是否在三角形内部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断点是否在三角形内"><span class="nav-number">3.1.</span> <span class="nav-text">判断点是否在三角形内</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角形填充算法"><span class="nav-number">3.2.</span> <span class="nav-text">三角形填充算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平面阴影渲染"><span class="nav-number">4.</span> <span class="nav-text">平面阴影渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染测试"><span class="nav-number">4.1.</span> <span class="nav-text">渲染测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光照"><span class="nav-number">4.2.</span> <span class="nav-text">光照</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Morakito</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">10.5k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共10.5k字&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+</div>
+-->
+
+<!--在这里修改底部运行时间-->
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("5/11/2020 22:00:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = " 已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

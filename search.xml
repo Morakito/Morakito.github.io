@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>条款03：尽可能使用const</title>
+    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
+    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
+<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
+<p>1，如果const出现在*****的左边，表示被指物是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
+<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
+<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
+<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
+<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
+]]></content>
+      <categories>
+        <category>Effective C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>条款02：尽量以const，enum，inline替换#define</title>
     <url>/2020/05/Effective-C++/Effective-CPP-02/</url>
     <content><![CDATA[<p><strong>用编译器替换预处理器</strong></p>
@@ -27,30 +51,6 @@
 <li>对于常量，最好以const对象或者enum替换#define</li>
 <li>对于形似函数的宏，最好用inline函数替换#define</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Effective C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>条款03：尽可能使用const</title>
-    <url>/2020/06/Effective-C++/Effective-CPP-03/</url>
-    <content><![CDATA[<h3 id="const的作用"><a href="#const的作用" class="headerlink" title="const的作用"></a>const的作用</h3><p>1，告诉编译器和其他程序员某值应该保持不变<br>2，会获得编译器的帮助提示</p>
-<h3 id="const的语法：常量声名"><a href="#const的语法：常量声名" class="headerlink" title="const的语法：常量声名"></a>const的语法：常量声名</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> greeting[] = <span class="string">"hello"</span>;</span><br></pre></td></tr></table></figure>
-<p>1，如果const出现在*****的左边，表示被指物是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* p = greeting;   <span class="comment">//不可以修改*p，可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>2，如果const出现在*****的右边，表示指针自身是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<p>3，如果const出现在*****两边，表示被指物和指针都是常量</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p = greeting;   <span class="comment">//不可以修改*p，不可以修改p</span></span><br></pre></td></tr></table></figure>
-<h3 id="const的语法：函数声名"><a href="#const的语法：函数声名" class="headerlink" title="const的语法：函数声名"></a>const的语法：函数声名</h3><p>在一个函数声名式中，const可以和函数返回值，参数，函数自身（成员函数）发生关系</p>
-<h4 id="作用于参数"><a href="#作用于参数" class="headerlink" title="作用于参数"></a>作用于参数</h4><p>1，const参数类似于local const对象，参数不可修改<br>2，除非需要改动参数，否则应该声名为const</p>
-<h4 id="作用于返回值"><a href="#作用于返回值" class="headerlink" title="作用于返回值"></a>作用于返回值</h4><p>预防“没有意义的赋值操作”，如：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line">(a * b) = c;    <span class="comment">//在a * b的结果上调用operator=</span></span><br></pre></td></tr></table></figure>
-<h4 id="作用于成员函数（const成员函数）"><a href="#作用于成员函数（const成员函数）" class="headerlink" title="作用于成员函数（const成员函数）"></a>作用于成员函数（const成员函数）</h4><p>目的是确认改成员函数可作用于const对象身上</p>
 ]]></content>
       <categories>
         <category>Effective C++</category>
@@ -155,6 +155,39 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
+]]></content>
+      <categories>
+        <category>博客技巧</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tiny-Renderer-02  三角形光栅化</title>
     <url>/2020/07/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-02/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在上一篇的末尾，我们依靠Bresenham画线算法和从.obj文件中读取出来的vertex和face信息来绘制了线框模型。我们知道模型在渲染的时候，多边形会被解算成三角形，而这一次我们的任务就是绘制并填充三角形。</p>
@@ -211,39 +244,6 @@
         <tag>扫描线填充法</tag>
         <tag>包围盒</tag>
         <tag>三角形</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
-]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
       </tags>
   </entry>
   <entry>

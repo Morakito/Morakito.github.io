@@ -214,42 +214,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo博客实用技巧</title>
-    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
-<pre><code>Home
-%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
-<pre><code>machine github.com
-login username
-password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
-<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
-<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>（ps：一篇文章可以有多个标签）</p>
-<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
-]]></content>
-      <categories>
-        <category>博客技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Tiny-Renderer-03  消隐（Z-buffer）</title>
     <url>/2020/08/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-03/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="光照"><a href="#光照" class="headerlink" title="光照"></a>光照</h2><h3 id="渲染测试"><a href="#渲染测试" class="headerlink" title="渲染测试"></a>渲染测试</h3><p>在第一篇中，我们渲染了线框模型。在第二篇我们完成了三角形的填充算法，现在我们可以尝试渲染面填充的模型，这里我们对三角面随机填充颜色：</p>
+    <content><![CDATA[<h2 id="光照"><a href="#光照" class="headerlink" title="光照"></a>光照</h2><h3 id="渲染测试"><a href="#渲染测试" class="headerlink" title="渲染测试"></a>渲染测试</h3><p>在第一篇中，我们渲染了线框模型。在第二篇我们完成了三角形的填充算法，现在我们可以尝试渲染面填充的模型，这里我们对三角面随机填充颜色：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//随机填充颜色</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="function">PNGImage <span class="title">image</span><span class="params">(<span class="built_in">width</span>, <span class="built_in">height</span>,RGBCOLOR)</span></span>;</span><br><span class="line"></span><br><span class="line">	Model* model = <span class="keyword">new</span> Model(<span class="string">"obj/african_head.obj"</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; model-&gt;nfaces(); i++) &#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; face = model-&gt;face(i);</span><br><span class="line">		Vec2i screen_coords[<span class="number">3</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">			Vec3f world_coords = model-&gt;vert(face[j]);</span><br><span class="line">			<span class="comment">//世界坐标转换到屏幕坐标</span></span><br><span class="line">			screen_coords[j] = Vec2i((world_coords.x + <span class="number">1.</span>) * <span class="built_in">width</span> / <span class="number">2.</span>, (world_coords.y + <span class="number">1.</span>) * <span class="built_in">height</span> / <span class="number">2.</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		triangle(screen_coords[<span class="number">0</span>], screen_coords[<span class="number">1</span>], screen_coords[<span class="number">2</span>], <span class="built_in">image</span>, Color(rand() % <span class="number">255</span>, rand() % <span class="number">255</span>, rand() % <span class="number">255</span>, <span class="number">255</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">image</span>.save(<span class="string">"image/2-7.png"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://github.com/Morakito/Blog-Images/raw/Tiny-Renderer/2-6.png" alt="随机填充颜色"></p>
 <h3 id="光照-1"><a href="#光照-1" class="headerlink" title="光照"></a>光照</h3><p>接下来我们给模型添加一些简单的光影信息，首先需要明确的是：<br>1，在同样的光线强度下，当多边形与光线方向正交时，它被照亮得最明亮。<br>2，如果多边形平行于光矢量，我们得到零光照。<br>把这两句常识转换成数学上的专业术语便是：</p>
@@ -273,7 +240,25 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
         <category>光栅化渲染器</category>
       </categories>
       <tags>
-        <tag>图形学 - 消隐 - Z-buffer</tag>
+        <tag>图形学 - 消隐</tag>
+        <tag>Z-buffer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重心坐标</title>
+    <url>/2020/08/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87/</url>
+    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>1，给的三角形的三个顶点A(x0,y0),B(x1,y1),C(x2,y2)，则三角形所在平面内的任意一点都可以表示为点A，B，C坐标的线性组合。<br><strong><center>P = αA + βB + γC</center></strong><br>其中<strong>α + β + γ = 1</strong><br>2，若将α，β，γ分别看作点A，B，C的质量，则点P就是三角形ABC的重心，这样构建的坐标系叫做重心坐标系。称（α，β，γ）为点P在重心坐标系下的坐标，简称重心坐标。</p>
+<h2 id="向量解释"><a href="#向量解释" class="headerlink" title="向量解释"></a>向量解释</h2><p>1，在三角形ABC所在的平面中，以A为原点，AB，AC为单位向量构建坐标系。<br>可得：<br><strong><center>P = A  +  β(B – A) + γ(C - A)</center></strong><br>简单变形：<br><strong><center>P = (1 - β - γ)A + βB+ γC</center></strong><br>2，重心坐标系与平面坐标系是等价的。</p>
+<h2 id="计算方法"><a href="#计算方法" class="headerlink" title="计算方法"></a>计算方法</h2><h3 id="代数方法"><a href="#代数方法" class="headerlink" title="代数方法"></a>代数方法</h3><p><img src="https://github.com/Morakito/Blog-Images/raw/CG/1.png" alt="重心坐标-代数方法-公式推导"><br>一统推导猛如虎，我们最后将方程写成了矩阵形式。仔细观察，不难发现，其实就是寻找向量（u，v，1），它同时垂直于两个向量，这里使用向量的<strong>叉乘（向量积）</strong>即可得，最后对结果进行一些处理即可。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//重心坐标（α，β，γ）</span></span><br><span class="line"><span class="function">Vec3f <span class="title">barycentric</span><span class="params">(Vec3f A, Vec3f B, Vec3f C, Vec3f P)</span> </span>&#123;</span><br><span class="line">	Vec3f vx = &#123; B.x - A.x,C.x - A.x,A.x - P.x &#125;;</span><br><span class="line">	Vec3f vy = &#123; B.y - A.y,C.y - A.y,A.y - P.y &#125;;</span><br><span class="line"></span><br><span class="line">	Vec3f u = cross(vx, vy);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(u.z) &gt; <span class="number">1e-2</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> Vec3f(<span class="number">1.0f</span> - (u.x + u.y) / u.z, u.x / u.z, u.y / u.z);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Vec3f(<span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后这里需要注意的是，当我们传入的三个坐标点A，B，C共线的时候，三角形ABC就退化成了一条直线，这个时候叉乘的结果u.z = 0。<br>这里我们需要做一些相应的处理（这里计算重心坐标的目的是判断点P是否在三角形内部，因此返回一个带负分量的向量即可）。</p>
+<h2 id="重心坐标在图形学中的应用"><a href="#重心坐标在图形学中的应用" class="headerlink" title="重心坐标在图形学中的应用"></a>重心坐标在图形学中的应用</h2><h3 id="判定点是否在三角形内部"><a href="#判定点是否在三角形内部" class="headerlink" title="判定点是否在三角形内部"></a>判定点是否在三角形内部</h3><p>1，我们求出了点P的重心坐标（α，β，γ）后，若三个分量均大于0，则说明点P在该三角形内部。<br>2，这个结论可以用于三角形的填充算法，只要判定在包围盒中的点是否在三角形内部即可。</p>
+]]></content>
+      <categories>
+        <category>图形学</category>
+      </categories>
+      <tags>
+        <tag>重心坐标</tag>
       </tags>
   </entry>
   <entry>
@@ -352,20 +337,39 @@ password password</code></pre><h3 id="添加分类功能"><a href="#添加分类
       </tags>
   </entry>
   <entry>
-    <title>重心坐标</title>
-    <url>/2020/08/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87/</url>
-    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>1，给的三角形的三个顶点A(x0,y0),B(x1,y1),C(x2,y2)，则三角形所在平面内的任意一点都可以表示为点A，B，C坐标的线性组合。<br><strong><center>P = αA + βB + γC</center></strong><br>其中<strong>α + β + γ = 1</strong><br>2，若将α，β，γ分别看作点A，B，C的质量，则点P就是三角形ABC的重心，这样构建的坐标系叫做重心坐标系。称（α，β，γ）为点P在重心坐标系下的坐标，简称重心坐标。</p>
-<h2 id="向量解释"><a href="#向量解释" class="headerlink" title="向量解释"></a>向量解释</h2><p>1，在三角形ABC所在的平面中，以A为原点，AB，AC为单位向量构建坐标系。<br>可得：<br><strong><center>P = A  +  β(B – A) + γ(C - A)</center></strong><br>简单变形：<br><strong><center>P = (1 - β - γ)A + βB+ γC</center></strong><br>2，重心坐标系与平面坐标系是等价的。</p>
-<h2 id="计算方法"><a href="#计算方法" class="headerlink" title="计算方法"></a>计算方法</h2><h3 id="代数方法"><a href="#代数方法" class="headerlink" title="代数方法"></a>代数方法</h3><p><img src="https://github.com/Morakito/Blog-Images/raw/CG/1.png" alt="重心坐标-代数方法-公式推导"><br>一统推导猛如虎，我们最后将方程写成了矩阵形式。仔细观察，不难发现，其实就是寻找向量（u，v，1），它同时垂直于两个向量，这里使用向量的<strong>叉乘（向量积）</strong>即可得，最后对结果进行一些处理即可。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//重心坐标（α，β，γ）</span></span><br><span class="line"><span class="function">Vec3f <span class="title">barycentric</span><span class="params">(Vec3f A, Vec3f B, Vec3f C, Vec3f P)</span> </span>&#123;</span><br><span class="line">	Vec3f vx = &#123; B.x - A.x,C.x - A.x,A.x - P.x &#125;;</span><br><span class="line">	Vec3f vy = &#123; B.y - A.y,C.y - A.y,A.y - P.y &#125;;</span><br><span class="line"></span><br><span class="line">	Vec3f u = cross(vx, vy);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(u.z) &gt; <span class="number">1e-2</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> Vec3f(<span class="number">1.0f</span> - (u.x + u.y) / u.z, u.x / u.z, u.y / u.z);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Vec3f(<span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后这里需要注意的是，当我们传入的三个坐标点A，B，C共线的时候，三角形ABC就退化成了一条直线，这个时候叉乘的结果u.z = 0。<br>这里我们需要做一些相应的处理（这里计算重心坐标的目的是判断点P是否在三角形内部，因此返回一个带负分量的向量即可）。</p>
-<h2 id="重心坐标在图形学中的应用"><a href="#重心坐标在图形学中的应用" class="headerlink" title="重心坐标在图形学中的应用"></a>重心坐标在图形学中的应用</h2><h3 id="判定点是否在三角形内部"><a href="#判定点是否在三角形内部" class="headerlink" title="判定点是否在三角形内部"></a>判定点是否在三角形内部</h3><p>1，我们求出了点P的重心坐标（α，β，γ）后，若三个分量均大于0，则说明点P在该三角形内部。<br>2，这个结论可以用于三角形的填充算法，只要判定在包围盒中的点是否在三角形内部即可。</p>
+    <title>Hexo博客实用技巧</title>
+    <url>/2020/05/%E5%8D%9A%E5%AE%A2/Hexo%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h3 id="Hexo免密部署到Github"><a href="#Hexo免密部署到Github" class="headerlink" title="Hexo免密部署到Github"></a>Hexo免密部署到Github</h3><p>1，新建系统环境变量</p>
+<pre><code>Home
+%USERPROFILE%</code></pre><p>2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：</p>
+<pre><code>machine github.com
+login username
+password password</code></pre><h3 id="添加分类功能"><a href="#添加分类功能" class="headerlink" title="添加分类功能"></a>添加分类功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page categories</code></pre><p>该命令会在source文件夹下生成一个categories文件夹，categories文件夹下会有index.md这个文件。<br>2，在index.md下添加type: categories，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>这里的title是HTML页面的title，可修改成自己想要的<br>3，在编辑新的markdown文件时，需要给文章添加categories属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章只会有一个分类，默认是第一个）</p>
+<h3 id="添加标签功能"><a href="#添加标签功能" class="headerlink" title="添加标签功能"></a>添加标签功能</h3><p>1，在博客的根目录下执行以下命令</p>
+<pre><code>hexo new page tags</code></pre><p>该命令会在source文件夹下生成一个tags文件夹，tags文件夹下会有index.md这个文件。<br>2，在index.md下添加type: tags，添加后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: <span class="number">2019</span><span class="number">-04</span><span class="number">-24</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">30</span></span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>3，在编辑新的markdown文件时，需要给文章添加tags属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: <span class="number">2017</span><span class="number">-05</span><span class="number">-26</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">57</span></span><br><span class="line">categories: </span><br><span class="line">        - Hexo</span><br><span class="line">tags：</span><br><span class="line">        - 博客技巧</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>（ps：一篇文章可以有多个标签）</p>
+<h3 id="修改内容区域宽度"><a href="#修改内容区域宽度" class="headerlink" title="修改内容区域宽度"></a>修改内容区域宽度</h3><p>next主题默认的宽带有点窄，留白太多，文章宽度不够<br>打开/Hexo/themes/hexo-theme-next/source//css/_variables/custom.styl 添加两行代码即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$main-desktop = <span class="number">1200</span>px </span><br><span class="line">$content-desktop = <span class="number">900</span>px</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用GitHub作为博客图床"><a href="#使用GitHub作为博客图床" class="headerlink" title="使用GitHub作为博客图床"></a>使用GitHub作为博客图床</h3><p>1，新建一个仓库存放图片，为了便于分类和管理，可以放在不同分支下<br>2，将需要使用的图片上传到指定分支下<br>3，复制图片所在页面的URL<br>4，嵌入markdown，<strong>注意:</strong> 需要将链接中的blob修改成raw</p>
+<h3 id="公益404界面"><a href="#公益404界面" class="headerlink" title="公益404界面"></a>公益404界面</h3><p>新建 404.html 页面，放到主题的 source 目录下，内容如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=utf-8;"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"index,follow"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"https://qzone.qq.com/gy/404/style/404style.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/plain"</span> <span class="attr">src</span>=<span class="string">"http://www.qq.com/404/search_children.js"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">charset</span>=<span class="string">"utf-8"</span> <span class="attr">homePageUrl</span>=<span class="string">"/"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">homePageName</span>=<span class="string">"回到我的主页"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://qzone.qq.com/gy/404/data.js"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://qzone.qq.com/gy/404/page.js"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>图形学</category>
+        <category>博客技巧</category>
       </categories>
       <tags>
-        <tag>重心坐标</tag>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
       </tags>
   </entry>
 </search>

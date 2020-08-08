@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Unity,角色控制,Character Controller," />
 
 
 
@@ -79,14 +79,21 @@
 
 
 
-<meta name="description" content="我就喜欢你看不惯我又干不掉我的样子">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Morakito的blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+<meta name="description" content="介绍Unity中提供了一个Character Controller组件用于实现角色控制。可以将该组件直接添加给需要控制的物体，会自动模拟出一个Capsule Collider。 参数详解 Slope Limit：坡度限制，默认是45°。物体只能爬上该角度内的坡度。 Step Offset：台阶限制，默认是0.3。物体只能登上该高度内的台阶（障碍）。 Skin Width：蒙皮的厚度，与其他Coll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="角色控制器CharacterController">
+<meta property="og:url" content="http://yoursite.com/2020/08/unity/%E8%A7%92%E8%89%B2%E6%8E%A7%E5%88%B6%E5%99%A8CharacterController/index.html">
 <meta property="og:site_name" content="Morakito的blog">
-<meta property="og:description" content="我就喜欢你看不惯我又干不掉我的样子">
+<meta property="og:description" content="介绍Unity中提供了一个Character Controller组件用于实现角色控制。可以将该组件直接添加给需要控制的物体，会自动模拟出一个Capsule Collider。 参数详解 Slope Limit：坡度限制，默认是45°。物体只能爬上该角度内的坡度。 Step Offset：台阶限制，默认是0.3。物体只能登上该高度内的台阶（障碍）。 Skin Width：蒙皮的厚度，与其他Coll">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@Unity/CharacterController.png">
+<meta property="article:published_time" content="2020-08-06T10:29:11.000Z">
+<meta property="article:modified_time" content="2020-08-08T05:24:47.714Z">
 <meta property="article:author" content="Morakito">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="角色控制">
+<meta property="article:tag" content="Character Controller">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@Unity/CharacterController.png">
 
 
 
@@ -116,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2020/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/08/unity/角色控制器CharacterController/"/>
 
 
 
 
 
-  <title>归档 | Morakito的blog</title>
+  <title>角色控制器CharacterController | Morakito的blog</title>
   
 
 
@@ -141,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,411 +296,227 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/unity/%E8%A7%92%E8%89%B2%E6%8E%A7%E5%88%B6%E5%99%A8CharacterController/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morakito">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Morakito的blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">角色控制器CharacterController</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-06T18:29:11+08:00">
+                2020-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 11 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/08/unity/%E8%A7%92%E8%89%B2%E6%8E%A7%E5%88%B6%E5%99%A8CharacterController/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">角色控制器CharacterController</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  859
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-08-06T18:29:11+08:00"
-              content="2020-08-06" >
-          08-06
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Unity中提供了一个Character Controller组件用于实现角色控制。可以将该组件直接添加给需要控制的物体，会自动模拟出一个Capsule Collider。<br><img src="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@Unity/CharacterController.png" alt="角色控制器Character Controller"></p>
+<h2 id="参数详解"><a href="#参数详解" class="headerlink" title="参数详解"></a>参数详解</h2><ul>
+<li>Slope Limit：坡度限制，默认是45°。物体只能爬上该角度内的坡度。</li>
+<li>Step Offset：台阶限制，默认是0.3。物体只能登上该高度内的台阶（障碍）。</li>
+<li>Skin Width：蒙皮的厚度，与其他Collider碰撞的时候渗入的最大深度。过大会出现角色抖动，过小角色会被卡住，建议是Raius的10%。</li>
+<li>Min Move Distance：若移动的距离低于该值，角色则不移动，可以防止一些小移动导致的震动</li>
+<li>Center：Capsule Collider相对于物体Transfrom的偏移量</li>
+<li>Radius：Capsule Collider的半径</li>
+<li>Height: Capsule Collider的高度</li>
+</ul>
+<p>下面的属性不暴露在属性面板</p>
+<ul>
+<li>isGrounded：判断是否着底，需要注意：判断的是最后一次移动后的状态</li>
+<li>velocity：当前的相对速度</li>
+<li>detectCollisions：是否会受到场景中其他的碰撞体的阻挡</li>
+<li>enableOverlapRecovery：当物体和其他碰撞体重叠的时候，是否会自动恢复（从碰撞体中移出来）</li>
+<li>collisionFlags：在最后一次移动中，Capsule Collider的那一部分和物体发生了碰撞</li>
+</ul>
+<h2 id="运动方式"><a href="#运动方式" class="headerlink" title="运动方式"></a>运动方式</h2><h3 id="Move"><a href="#Move" class="headerlink" title="Move"></a>Move</h3><p>类似于translate，该方法移动时不直接受重力的影响</p>
+<h3 id="SimpleMove"><a href="#SimpleMove" class="headerlink" title="SimpleMove"></a>SimpleMove</h3><p>使用SimpleMove进行移动的时候，会受到重力的影响</p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class FPCharacterControllerMovement : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;------------------角色运动参数-----------------</span><br><span class="line">    [Header(&quot;角色运动速度&quot;)]</span><br><span class="line">    [Tooltip(&quot;当前速度&quot;)]</span><br><span class="line">    public float curSpeed;</span><br><span class="line">    [Space]</span><br><span class="line">    [Tooltip(&quot;行走速度&quot;)]</span><br><span class="line">    public float walkSpeed &#x3D; 5.0f; </span><br><span class="line">    [Tooltip(&quot;奔跑速度&quot;)]</span><br><span class="line">    public float runSpeed &#x3D; 9.0f;</span><br><span class="line">    [Tooltip(&quot;蹲下移动的速度&quot;)]</span><br><span class="line">    public float crouchSpeed &#x3D; 2.0f;</span><br><span class="line"></span><br><span class="line">    [Header(&quot;跳跃和下蹲&quot;)]</span><br><span class="line">    [Tooltip(&quot;跳跃的最大高度&quot;)]</span><br><span class="line">    public float jumpHeight &#x3D; 0.8f;</span><br><span class="line">    &#x2F;&#x2F;站立的高度</span><br><span class="line">    private float standHeight;</span><br><span class="line">    [Tooltip(&quot;下蹲的高度&quot;)]</span><br><span class="line">    public float crouchHeight &#x3D; 1.0f;</span><br><span class="line">    [Tooltip(&quot;下蹲用时&quot;)]</span><br><span class="line">    public float crouchTime &#x3D; 4.0f;</span><br><span class="line"></span><br><span class="line">    [Header(&quot;角色重力&quot;)]</span><br><span class="line">    [Tooltip(&quot;重力&quot;)]</span><br><span class="line">    public float gravity &#x3D; 9.8f;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;------------------角色运动状态-----------------</span><br><span class="line">    [Header(&quot;角色运动状态&quot;)]</span><br><span class="line">    [Tooltip(&quot;是否下蹲&quot;)]</span><br><span class="line">    public bool isCrouched &#x3D; false;</span><br><span class="line">    public bool isGrounded &#x3D; false;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;使用的CharacterController</span><br><span class="line">    private CharacterController characterController;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;角色的Transform</span><br><span class="line">    private Transform characterTransform;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;输入的运动</span><br><span class="line">    private Vector3 moveDir;</span><br><span class="line"></span><br><span class="line">    private void Awake()</span><br><span class="line">    &#123;</span><br><span class="line">        characterController &#x3D; GetComponent&lt;CharacterController&gt;();</span><br><span class="line">        characterTransform &#x3D; transform;</span><br><span class="line">        curSpeed &#x3D; walkSpeed;      &#x2F;&#x2F;默认为走路速度</span><br><span class="line">        standHeight &#x3D; characterController.height;   &#x2F;&#x2F;站立的高度</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void Update()</span><br><span class="line">    &#123;</span><br><span class="line">        isGrounded &#x3D; characterController.isGrounded;</span><br><span class="line">        if (isGrounded)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;获取输入</span><br><span class="line">            moveDir &#x3D; new Vector3(Input.GetAxis(&quot;Horizontal&quot;), 0, Input.GetAxis(&quot;Vertical&quot;));</span><br><span class="line">            &#x2F;&#x2F;转换成世界坐标，y轴对应跳跃</span><br><span class="line">            moveDir &#x3D; characterTransform.TransformDirection(moveDir.x, 0, moveDir.z);</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;跳跃</span><br><span class="line">            if (Input.GetButtonDown(&quot;Jump&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                moveDir.y +&#x3D; Mathf.Sqrt(2 * gravity * jumpHeight);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;下蹲</span><br><span class="line">            if (Input.GetKeyDown(KeyCode.LeftControl))</span><br><span class="line">            &#123;</span><br><span class="line">                float targetHeight &#x3D; isCrouched ? standHeight : crouchHeight;</span><br><span class="line">                StartCoroutine(doCrouch(targetHeight));</span><br><span class="line">                isCrouched &#x3D; !isCrouched;</span><br><span class="line">            &#125;</span><br><span class="line">            if (isCrouched)</span><br><span class="line">            &#123;</span><br><span class="line">                curSpeed &#x3D; crouchSpeed;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;奔跑or行走</span><br><span class="line">                curSpeed &#x3D; Input.GetButton(&quot;Fire3&quot;) ? runSpeed : walkSpeed;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;重力影响</span><br><span class="line">        moveDir.y -&#x3D; (gravity * Time.deltaTime);</span><br><span class="line">        &#x2F;&#x2F;运动控制</span><br><span class="line">        characterController.Move(curSpeed * Time.deltaTime * moveDir);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 下蹲</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;targetHeight&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">    private IEnumerator doCrouch(float targetHeight)</span><br><span class="line">    &#123;</span><br><span class="line">        float curHeight &#x3D; 0;</span><br><span class="line">        while (Mathf.Abs(characterController.height - targetHeight) &gt; 0.01f)</span><br><span class="line">        &#123;</span><br><span class="line">            yield return null;</span><br><span class="line">            characterController.height &#x3D; Mathf.SmoothDamp(characterController.height, targetHeight, ref curHeight, Time.deltaTime * crouchTime);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/08/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-03/" itemprop="url">
-              
-                <span itemprop="name">Tiny-Renderer-03  消隐（Z-buffer）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-08-03T17:55:32+08:00"
-              content="2020-08-03" >
-          08-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/08/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87/" itemprop="url">
-              
-                <span itemprop="name">重心坐标</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-08-03T10:01:45+08:00"
-              content="2020-08-03" >
-          08-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-02/" itemprop="url">
-              
-                <span itemprop="name">Tiny-Renderer-02  三角形光栅化</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-30T10:34:33+08:00"
-              content="2020-07-30" >
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/LeetCode/%E3%80%90LeetCode%E3%80%9137%20-%20%E8%A7%A3%E6%95%B0%E7%8B%AC/" itemprop="url">
-              
-                <span itemprop="name">【LeetCode】37 - 解数独</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-16T10:19:47+08:00"
-              content="2020-07-16" >
-          07-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-01/" itemprop="url">
-              
-                <span itemprop="name">Tiny-Renderer-01  Bresenham画线算法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-17T21:10:08+08:00"
-              content="2020-06-17" >
-          06-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/%E7%AE%97%E6%B3%95/%E5%B8%B8%E8%A7%8110%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url">
-              
-                <span itemprop="name">常见10种排序算法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-09T08:55:36+08:00"
-              content="2020-06-09" >
-          06-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/Effective-C++/Effective-CPP-03/" itemprop="url">
-              
-                <span itemprop="name">条款03：尽可能使用const</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-06T11:10:21+08:00"
-              content="2020-06-06" >
-          06-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/05/Effective-C++/Effective-CPP-02/" itemprop="url">
-              
-                <span itemprop="name">条款02：尽量以const，enum，inline替换#define</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-20T22:28:44+08:00"
-              content="2020-05-20" >
-          05-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/05/Effective-C++/Effective-CPP-01/" itemprop="url">
-              
-                <span itemprop="name">条款01：视C++为一个语言联邦</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-20T22:07:55+08:00"
-              content="2020-05-20" >
-          05-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity/" rel="tag"># Unity</a>
+          
+            <a href="/tags/%E8%A7%92%E8%89%B2%E6%8E%A7%E5%88%B6/" rel="tag"># 角色控制</a>
+          
+            <a href="/tags/Character-Controller/" rel="tag"># Character Controller</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/Tiny-Renderer-03/" rel="next" title="Tiny-Renderer-03  消隐（Z-buffer）">
+                <i class="fa fa-chevron-left"></i> Tiny-Renderer-03  消隐（Z-buffer）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -701,6 +524,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -721,8 +548,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -802,6 +638,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数详解"><span class="nav-number">2.</span> <span class="nav-text">参数详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运动方式"><span class="nav-number">3.</span> <span class="nav-text">运动方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Move"><span class="nav-number">3.1.</span> <span class="nav-text">Move</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SimpleMove"><span class="nav-number">3.2.</span> <span class="nav-text">SimpleMove</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">4.</span> <span class="nav-text">Demo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -978,6 +830,10 @@ setInterval("createtime()",250);
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

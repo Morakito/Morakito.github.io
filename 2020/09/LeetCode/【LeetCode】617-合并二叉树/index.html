@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目 方法1：前序遍历+递归分析可以将使用递归的思想，对于两个同位置的根结点，我们需要将他们合并然后返回其中一个根结点。1，若两个结点都不为空，则直接相加合并2，若两个结点中至少有一个为空，则直接返回另一个结点。3，合并左右子树。 代码1234567891011121314151617class Solution &amp;#123;public:    TreeNode* mergeTrees(Tree">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@LeetCode/617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91.png">
 <meta property="article:published_time" content="2020-09-07T11:18:49.000Z">
-<meta property="article:modified_time" content="2020-09-07T13:12:25.068Z">
+<meta property="article:modified_time" content="2020-09-08T12:31:40.250Z">
 <meta property="article:author" content="Morakito">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="二叉树">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  616
+                  670
                 </span>
               
 
@@ -443,6 +443,8 @@
 <p>最终一共是两个需要判断的情况，右孩子也是如此处理。</p>
 <h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">mergeTrees</span><span class="params">(TreeNode* t1, TreeNode* t2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//检查根结点</span></span><br><span class="line">        <span class="keyword">if</span>(t1 == <span class="literal">NULL</span>) <span class="keyword">return</span> t2;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//辅助栈</span></span><br><span class="line">        <span class="built_in">stack</span>&lt;pair&lt;TreeNode*, TreeNode* &gt;&gt; <span class="built_in">stack</span>;</span><br><span class="line">        <span class="comment">//根结点入栈</span></span><br><span class="line">        <span class="built_in">stack</span>.push(make_pair(t1, t2));</span><br><span class="line">        <span class="keyword">while</span>(!<span class="built_in">stack</span>.empty())&#123;</span><br><span class="line">            <span class="comment">//弹出栈顶元素</span></span><br><span class="line">            pair&lt;TreeNode*, TreeNode* &gt; cur_pair = <span class="built_in">stack</span>.top();</span><br><span class="line">            <span class="built_in">stack</span>.pop();</span><br><span class="line">            <span class="comment">/*合并当前根结点*/</span></span><br><span class="line">            <span class="comment">//当其中t2根结点为空的时候，可以直接跳过合并</span></span><br><span class="line">            <span class="keyword">if</span>(cur_pair.second == <span class="literal">NULL</span>) <span class="keyword">continue</span>;</span><br><span class="line">            cur_pair.first-&gt;val += cur_pair.second-&gt;val;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*左右孩子入栈*/</span></span><br><span class="line">            <span class="comment">//1，t1有左孩子</span></span><br><span class="line">            <span class="keyword">if</span>(cur_pair.first-&gt;left != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                <span class="comment">//1.1，t2有左孩子</span></span><br><span class="line">                <span class="keyword">if</span>(cur_pair.second-&gt;left != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                    <span class="built_in">stack</span>.push(make_pair(cur_pair.first-&gt;left, cur_pair.second-&gt;left));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//1.2，t2没有孩子,跳过</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//2，t1没有左孩子，直接继承t2的左孩子</span></span><br><span class="line">                cur_pair.first-&gt;left = cur_pair.second-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*右孩子同理*/</span></span><br><span class="line">            <span class="keyword">if</span>(cur_pair.first-&gt;right != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(cur_pair.second-&gt;right != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                   <span class="built_in">stack</span>.push(make_pair(cur_pair.first-&gt;right, cur_pair.second-&gt;right)); </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cur_pair.first-&gt;right = cur_pair.second-&gt;right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> t1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>递归和迭代的方法都使用了栈空间，最大进行了N层的递归（N为较少的结点个数）。<br>时间复杂度和空间复杂度都是O（n）。</p>
+
       
     </div>
     
@@ -483,6 +485,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/LeetCode/%E3%80%90LeetCode%E3%80%91142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/" rel="prev" title="【LeetCode】142-环形链表II">
+                【LeetCode】142-环形链表II <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -563,7 +569,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -585,7 +591,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -634,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法1：前序遍历-递归"><span class="nav-number">2.</span> <span class="nav-text">方法1：前序遍历+递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法2：迭代"><span class="nav-number">3.</span> <span class="nav-text">方法2：迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-1"><span class="nav-number">3.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">3.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法1：前序遍历-递归"><span class="nav-number">2.</span> <span class="nav-text">方法1：前序遍历+递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法2：迭代"><span class="nav-number">3.</span> <span class="nav-text">方法2：迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-1"><span class="nav-number">3.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">3.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂度分析"><span class="nav-number">4.</span> <span class="nav-text">复杂度分析</span></a></li></ol></div>
             
 
           </div>
@@ -669,7 +675,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">16.1k</span>
+    <span title="Site words total count">17.3k</span>
   
 </div>
 
@@ -685,7 +691,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共16.1k字&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+  <span class="post-count">博客全站共17.3k字&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
 </div>
 -->
 

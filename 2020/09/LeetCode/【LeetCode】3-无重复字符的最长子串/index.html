@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="LeetCode,滑动窗口," />
 
 
 
@@ -79,14 +79,20 @@
 
 
 
-<meta name="description" content="我就喜欢你看不惯我又干不掉我的样子">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Morakito的blog">
-<meta property="og:url" content="http://yoursite.com/tags/%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87/index.html">
+<meta name="description" content="题目 分析思路该题目要求的是最长字串，也就是说是连续的几个字符。1，我们可以使用滑动窗口来完成，我们可以想象一个队列，这个队列左边出，右边进。2，这里我们使用双指针来模拟一个队列，我们维护两个指针start和end，分别指向滑动窗口的起始位置和结束位置。3，我们需要将滑动窗口内部的元素保存在一个哈希表中，方便查找是否有重复元素，这里使用了unordered_map，存储了字符-字符索引的键值对。4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LeetCode】3-无重复字符的最长子串">
+<meta property="og:url" content="http://yoursite.com/2020/09/LeetCode/%E3%80%90LeetCode%E3%80%913-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/index.html">
 <meta property="og:site_name" content="Morakito的blog">
-<meta property="og:description" content="我就喜欢你看不惯我又干不掉我的样子">
+<meta property="og:description" content="题目 分析思路该题目要求的是最长字串，也就是说是连续的几个字符。1，我们可以使用滑动窗口来完成，我们可以想象一个队列，这个队列左边出，右边进。2，这里我们使用双指针来模拟一个队列，我们维护两个指针start和end，分别指向滑动窗口的起始位置和结束位置。3，我们需要将滑动窗口内部的元素保存在一个哈希表中，方便查找是否有重复元素，这里使用了unordered_map，存储了字符-字符索引的键值对。4">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@LeetCode/3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2.png">
+<meta property="article:published_time" content="2020-09-10T11:59:27.000Z">
+<meta property="article:modified_time" content="2020-09-11T01:22:37.297Z">
 <meta property="article:author" content="Morakito">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="滑动窗口">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@LeetCode/3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2.png">
 
 
 
@@ -116,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/重心坐标/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/09/LeetCode/【LeetCode】3-无重复字符的最长子串/"/>
 
 
 
 
 
-  <title>标签: 重心坐标 | Morakito的blog</title>
+  <title>【LeetCode】3-无重复字符的最长子串 | Morakito的blog</title>
   
 
 
@@ -141,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,54 +295,212 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>重心坐标<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/LeetCode/%E3%80%90LeetCode%E3%80%913-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morakito">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Morakito的blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/08/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87/" itemprop="url">
-              
-                <span itemprop="name">重心坐标</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">【LeetCode】3-无重复字符的最长子串</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-08-03T10:01:45+08:00"
-              content="2020-08-03" >
-          08-03
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-10T19:59:27+08:00">
+                2020-09-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  647
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://cdn.jsdelivr.net/gh/Morakito/Blog-Images@LeetCode/3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2.png" alt=""></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>该题目要求的是最长字串，也就是说是连续的几个字符。<br>1，我们可以使用<strong>滑动窗口</strong>来完成，我们可以想象一个队列，这个队列左边出，右边进。<br>2，这里我们使用双指针来模拟一个队列，我们维护两个指针start和end，分别指向滑动窗口的<strong>起始位置</strong>和<strong>结束位置</strong>。<br>3，我们需要将滑动窗口内部的元素保存在一个哈希表中，方便查找是否有重复元素，这里使用了unordered_map，存储了<strong>字符-字符索引</strong>的键值对。<br>4，维护一个整性变量maxSize来记忆最大的滑动窗口长度，即无重复的最长字串</p>
+<h3 id="滑动窗口的运行过程"><a href="#滑动窗口的运行过程" class="headerlink" title="滑动窗口的运行过程"></a>滑动窗口的运行过程</h3><p>首先初始化滑动窗口，将第一个字符加入滑动窗口；同时初始化双指针<br>end指针每次向后移动一位，直到超过string的长度</p>
+<ul>
+<li>若当前滑动窗口中出现了重复元素，则start指针逐字符向后移动，同时移除哈希表中存储的对应元素，直到滑动窗口中没有重复元素</li>
+<li>更新滑动窗口，将end指针指向的字符存储在哈希表中</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//空字符串检测</span></span><br><span class="line">        <span class="keyword">if</span>(s.length() == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//当前已知最大的长度（滑动窗口的最大长度）</span></span><br><span class="line">        <span class="keyword">int</span> maxSize = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//记录滑动窗口中包含的元素</span></span><br><span class="line">        <span class="comment">//字符 — 在string中的索引</span></span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; hashtable;</span><br><span class="line">        <span class="comment">//滑动窗口的首尾指针</span></span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">end</span> = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//初始化滑动窗口：添加第一个元素</span></span><br><span class="line">        hashtable.insert(make_pair(s[start], start));    </span><br><span class="line"></span><br><span class="line">        <span class="comment">//尾指针end向后移动</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">end</span> != s.length())&#123;</span><br><span class="line">            <span class="keyword">char</span> newChar = s[<span class="built_in">end</span>];</span><br><span class="line">            <span class="comment">//判断进入滑动窗口的新元素是否重复</span></span><br><span class="line">            <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator it = hashtable.<span class="built_in">find</span>(newChar);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//元素重复</span></span><br><span class="line">            <span class="comment">//将头指针start逐个移动到重复元素的后一位置，并更新滑动窗口</span></span><br><span class="line">            <span class="keyword">if</span>(it != hashtable.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">int</span> newIndex = it-&gt;second + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(start != newIndex)&#123;</span><br><span class="line">                    hashtable.erase(s[start]);</span><br><span class="line">                    start++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//更新滑动窗口</span></span><br><span class="line">            hashtable.insert(make_pair(newChar, <span class="built_in">end</span>));</span><br><span class="line">            <span class="comment">//更新滑动窗口的大小</span></span><br><span class="line">            maxSize = (maxSize &lt; hashtable.<span class="built_in">size</span>()) ? hashtable.<span class="built_in">size</span>() : maxSize;</span><br><span class="line">            <span class="comment">//尾指针向后移动</span></span><br><span class="line">            <span class="built_in">end</span>++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxSize;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><h3 id="时间复杂度O（n）"><a href="#时间复杂度O（n）" class="headerlink" title="时间复杂度O（n）"></a>时间复杂度O（n）</h3><p>开始指针start和结束指针end都会遍历整个字符串一次</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>额外存储了滑动窗口中的元素，元素的个数取决于所指定的字符集的大小，比如ASCII字符集中有128个字符。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+            <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag"># 滑动窗口</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/LeetCode/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" rel="next" title="【LeetCode】146-LRU缓存机制">
+                <i class="fa fa-chevron-left"></i> 【LeetCode】146-LRU缓存机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -344,6 +508,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -364,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -445,6 +622,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动窗口的运行过程"><span class="nav-number">2.2.</span> <span class="nav-text">滑动窗口的运行过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂度分析"><span class="nav-number">4.</span> <span class="nav-text">复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度O（n）"><span class="nav-number">4.1.</span> <span class="nav-text">时间复杂度O（n）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间复杂度"><span class="nav-number">4.2.</span> <span class="nav-text">空间复杂度</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -621,6 +814,10 @@ setInterval("createtime()",250);
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

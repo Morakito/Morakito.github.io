@@ -428,8 +428,7 @@
       
         
           
-          光照渲染测试在第一篇中，我们渲染了线框模型。在第二篇我们完成了三角形的填充算法，现在我们可以尝试渲染面填充的模型，这里我们对三角面随机填充颜色：
-12345678910111213141516171819//随机填充颜色int main() &#123;	PNGImage image(width, 
+          光照渲染测试在第一篇中，我们渲染了线框模型。在第二篇我们完成了三角形的填充算法，现在我们可以尝试渲染面填充的模型，这里我们对三角面随机填充颜色：12345678910111213141516171819//随机填充颜色int main() &#123;	PNGImage image(width, h
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -788,8 +787,7 @@
         
           
           前言在上一篇的末尾，我们依靠Bresenham画线算法和从.obj文件中读取出来的vertex和face信息来绘制了线框模型。我们知道模型在渲染的时候，多边形会被解算成三角形，而这一次我们的任务就是绘制并填充三角形。
-传统方法：扫描线填充算法绘制线框三角形首先我们来绘制一个三角形
-123456789
+传统方法：扫描线填充算法绘制线框三角形首先我们来绘制一个三角形1234567891
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1472,7 +1470,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  294
+                  292
                 </span>
               
 
@@ -1513,8 +1511,7 @@
           
           const的作用1，告诉编译器和其他程序员某值应该保持不变2，会获得编译器的帮助提示
 const的语法：常量声名1char greeting[] = "hello";
-1，如果const出现在*****的左边，表示被指物是常量
-1const char* p = greeting;   //不可以修改
+1，如果const出现在*的左边，表示被指物是常量1const char* p = greeting;   //不可以修改*p，可以
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1654,7 +1651,7 @@ const的语法：常量声名1char greeting[] = "hello";
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  448
+                  447
                 </span>
               
 
@@ -1696,9 +1693,7 @@ const的语法：常量声名1char greeting[] = "hello";
           用编译器替换预处理器
 define的问题：定义常量1#define ASPECT_RATIO 1.653
 1，难以追踪异常2，无法限制作用域，不提供封装性
-解决办法是：用const常量替代宏（#define）
-1const double AspectRatio = 1.653；
-(ps：大写名称通常
+解决办法是：用const常量替代宏（#define）1const double AspectRatio = 1.653；(ps：大写名称通常用于
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2018,7 +2013,7 @@ C1，C++以C语言为基础，区块（blocks）、语句（statements）、预�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  700
+                  703
                 </span>
               
 
@@ -2059,10 +2054,12 @@ C1，C++以C语言为基础，区块（blocks）、语句（statements）、预�
           
           Hexo免密部署到Github1，新建系统环境变量
 Home
-%USERPROFILE%2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：
+%USERPROFILE%
+2，在用户目录(C:\Users\username)下新建_netrc.txt文件，在文件中输入：
 machine github.com
 login username
-password password添加分类功
+password password
+添加分
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2774,5 +2771,5 @@ setInterval("createtime()",250);
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
